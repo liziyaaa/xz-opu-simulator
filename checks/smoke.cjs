@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-webgl','--use-angle=swiftshader']});
 try {const page=await browser.newPage({viewport:{width:1500,height:1000}}),errors=[],failed=[];
 page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)failed.push(r.url());});
-const response=await page.goto(process.argv[2]||'http://127.0.0.1:8771/');assert.equal(response.status(),200);
+const response=await page.goto(process.argv[2]||'http://127.0.0.1:8771/xz/v1.2.0/');assert.equal(response.status(),200);
 await page.waitForFunction(()=>window.XZDemo?.sim);
 assert.equal(await page.locator('#micro-scene canvas').count(),1);
 assert.equal(await page.locator('#sample option').count(),6);

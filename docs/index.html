@@ -1,52 +1,27 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>XZ × OPU · 扩大量程演示 v1.2.0</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="brand"><span class="logo">↗</span><div><h1>XZ × OPU <span>扩大量程演示</span></h1><p>逐点测量 · 小变化用 FES · 大变化固定 X 找焦 · 统一 Z 基准</p></div></div><div class="demo-badge"><i></i> 纯仿真 · 不连接硬件</div></header>
-<div class="release-bar"><strong id="version-label">v1.2.0 · 2026-10-08 · 同角度微观视图 / 手册光学参数</strong><a id="versions-link" href="about.html">版本与操作说明 ↗</a></div>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="XZ扩大量程测量与OPU光路/四象限实时仿真。两套独立实验，浏览器直接打开，无需登录。">
+<meta name="color-scheme" content="light dark"><title>OPU 仿真实验室 · XZ 测量与光路实验</title>
+<link rel="stylesheet" href="site.css"><link rel="icon" href="data:,">
+</head>
+<body>
+<header class="masthead"><div class="brand">XZ × OPU / LAB</div><a href="https://github.com/liziyaaa/xz-opu-simulator" rel="noopener noreferrer">GitHub 项目 ↗</a></header>
 <main>
-<section class="toolbar card">
- <label class="sample-select">被测样品<select id="sample"></select></label>
- <label>光栅分辨率<select id="encoder"><option value="0.05">50 nm</option><option value="0.01">10 nm</option></select></label>
- <label>X 取点步长（µm）<input id="step" type="number" min="0.5" max="1000" step="0.5" value="2"></label>
- <label>演示速度<select id="speed"><option value="1">逐步讲解</option><option value="8">8×</option><option value="40" selected>40×</option><option value="150">快速完成</option></select></label>
- <div class="play-controls"><button id="play" class="primary">▶ 开始扫描</button><button id="one">单步</button><button id="reset" class="quiet">↺ 重置</button></div>
-</section>
-<div class="workspace">
- <section class="model card"><div class="panel-head"><div><h2>装配视图</h2><span class="sub">原 CAD 外轮廓 · 毫米比例不变</span></div><div class="segmented" id="views"><button data-view="left">左侧视角</button><button data-view="front" class="active">正视图</button><button data-view="right">右侧视角</button><button data-view="detail">测量区</button></div></div>
-  <div id="scene"><div id="webgl-error" hidden>3D 显示不可用，请在支持 WebGL 的浏览器中打开。</div><div class="scene-legend"><span><i class="green"></i>固定 OPU</span><span><i class="amber"></i>X 载物台</span><span><i class="blue"></i>Z 机构</span></div><div class="model-caption">Z 带动整套 X 机构；X 只带动载物台和样品。<br>蓝色球 / 光柱仅为放大定位标记；真实比例焦斑见微观窗口。</div><div class="axis-chip">X → &nbsp; Z ↑</div></div>
-  <div class="model-foot"><strong id="sample-title"></strong><p id="sample-note"></p><p class="muted">模型装配间隙 4.78 mm 仅用于布局，不是标定过的 OPU 工作距离。</p></div>
- </section>
- <section class="measure card"><div class="panel-head"><div><h2>测量现场</h2><span class="sub">沿扫描线剖面 · 横纵比例分别标注</span></div><span id="status" class="status">就绪</span></div>
-  <div class="readings"><div><span>X 扫描位置</span><strong id="x-value">0.000 <small>mm</small></strong></div><div><span>光栅 Z 位移 ↑为正</span><strong id="z-value">0.000 <small>µm</small></strong></div><div><span>FES 电压</span><strong id="fes-value">−60.000 <small>mV</small></strong></div><div><span>重建表面高度</span><strong id="height-value">0.000 <small>µm</small></strong></div></div>
-  <div class="canvas-wrap"><canvas id="section-chart"></canvas></div>
-  <div class="focus-meter"><div><span>线性区剩余离焦</span><strong id="residual-value">0.000 µm</strong></div><div class="meter"><span id="meter-dot"></span><i></i></div><div class="meter-labels"><span id="linear-left">−2 µm</span><span>标定中心</span><span id="linear-right">+2 µm</span></div></div>
-  <div class="equation"><span>高度变化</span><strong>Δh = ΔFES / k − ΔZ<sub>光栅</sub></strong><p>样品升高 → 间隙变小 → Z 下移；光学余量与实际 Z 读数合成高度。</p></div>
- </section>
+<section class="intro"><p class="eyebrow">两个实验 · 一个入口</p><h1>从测量流程，到光学信号。</h1><p>选择要观察的问题：X / Z 如何配合扩大量程，或样品、物镜与 PC 如何影响焦斑和四象限。两套演示独立运行，无需安装、登录或连接硬件。</p></section>
+<div class="experiments">
+<article class="experiment" aria-labelledby="xz-title">
+ <div class="sketch"><svg viewBox="0 0 470 190" role="img" aria-label="固定OPU，样品沿X扫描、Z回中并重建高度的示意图"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M80 152H397M102 152V130H350V152M123 130V98H330V130" class="neutral"/><path d="M150 98V83H190V68H232V42H280V98"/><path d="M215 16H257V27H215ZM236 27V65"/><path d="M124 171H330M124 171l8-5m-8 5l8 5M330 171l-8-5m8 5l-8 5M376 105V57m0 0l-5 8m5-8l5 8m-5 40l-5-8m5 8l5-8"/></g><g fill="currentColor"><circle cx="236" cy="42" r="4"/></g><text x="192" y="184">X 逐点扫描</text><text x="390" y="85">Z</text><text x="280" y="22">固定 OPU</text><text x="97" y="55">高度轮廓</text></svg></div>
+ <div class="experiment-body"><div class="tagline">流程与控制 · v1.2.0</div><h2 id="xz-title">XZ 扩大量程测量</h2><p>小变化用 FES；超出工作带时，固定 X、移动 Z 找焦，再合成相对高度。</p><ul><li>六种参考样品、三维装配与微观视图</li><li>10 / 50 nm 读数量化、逐点扫描与找焦记录</li><li>S 曲线、轮廓与 CSV 导出</li></ul><div class="actions"><a class="launch" data-demo="xz" href="xz/v1.2.0/">进入 XZ 演示 →</a><a class="secondary" href="xz/v1.2.0/about.html">流程与操作说明</a></div></div>
+</article>
+<article class="experiment optics" aria-labelledby="optics-title">
+ <div class="sketch"><svg viewBox="0 0 470 190" role="img" aria-label="激光去往物镜PC和样品，回光进入像散镜和四象限的示意图"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M50 86H315V26M188 86V160"/><path d="M46 73H72V99H46ZM120 66Q132 86 120 106Q108 86 120 66ZM180 77H197V94H180ZM302 66Q315 76 328 66M296 27H334" class="neutral"/><path d="M296 44H334V51H296ZM277 13H352M172 120Q188 131 204 120"/><path d="M175 147H201V173H175ZM188 147V173M175 160H201"/><path d="M90 81l9 5l-9 5M315 54l-5 8m5-8l5 8M188 104l-5-8m5 8l5-8"/></g><text x="35" y="121">激光</text><text x="234" y="85">物镜</text><text x="347" y="51">PC 0.6 mm</text><text x="367" y="18">样品</text><text x="216" y="167">四象限</text><text x="104" y="164">回光</text></svg></div>
+ <div class="experiment-body"><div class="tagline">光学与信号 · v2.0.0</div><h2 id="optics-title">OPU 光路 / 四象限</h2><p>直接拖动或输入位置，观察主光束往返传播、焦斑和四象限能量的实时变化。</p><ul><li>移动样品、物镜、PC；添加或移除透明片</li><li>样品面与探测面光斑、归一化 FES</li><li>像散检测、四路积分与重新计算的 S 曲线</li></ul><div class="actions"><a class="launch" data-demo="optics" href="optics/v2.0.0/">进入光路实验 →</a><a class="secondary" href="optics/v2.0.0/model.html">参数与模型边界</a></div></div>
+</article>
 </div>
-<section class="micro card"><div class="panel-head"><div><h2>微观测量 · 焦点附近</h2><span class="sub" id="micro-angle">正视图 · 同方向</span></div><div class="micro-controls"><label>SF-HD65 光学模式<select id="optical-mode" title="改变光学模式会重置当前仿真记录；请按实际使用的激光选择"><option value="dvd">DVD · 650 nm / NA 0.60</option><option value="cd">CD · 790 nm / NA 0.47</option></select></label><label>纵向视野<select id="micro-span"><option value="20">20 µm</option><option value="100" selected>100 µm</option><option value="250">250 µm</option><option value="1000">1 mm</option><option value="4000">4 mm</option></select></label><button id="micro-detail" class="quiet" onclick="XZDemo.setView('detail')">跟随测量区角度</button></div></div>
- <div class="micro-layout"><div id="micro-scene"><div class="micro-overlay"><span id="micro-fov"></span><span>固定焦平面 · 样品按真实比例移动</span></div><div class="micro-scale" id="micro-scale"></div><div class="micro-key">青色小圆：焦斑范围　虚线：光轴指示线（非光束外径）</div></div><div class="micro-info"><h3>尺寸与光学依据</h3><strong id="spot-info"></strong><p>依据 SF-HD65 S03，印刷页码 3–4。焦斑为理想圆孔径 Airy 中央斑第一暗环直径：d = 1.22 λ / NA；按 µm 尺寸显示，不人为加大。</p><p class="micro-caution">这是按手册参数计算的理想焦斑，不是本装置实测光斑。未模拟入瞳填充、像差、倾斜面、材料或离焦扩斑；光学模式不会替代实测 FES 标定。</p><p id="sample-dimensions"></p><p>样品为原五个参考模型的名义尺寸，部分基片为局部截取；并非已购买实物的测量认证。微观与装配窗口角度同步，横纵空间比例一致；换视野不清空数据。</p><p class="muted">默认 DVD 仅为演示初始选择，实际激光模式需按接线确认。切换 DVD/CD 会重置记录，并更新模拟边缘判定所用的焦斑范围。装配 4.78 mm 间隙不是经验证的工作距离。</p></div></div>
-</section>
-<section class="s-curve card"><div class="panel-head"><div><h2>S 曲线与实时工作点</h2><span class="sub">允许暂时离开线性区；到点后确认支路或主动找焦，再计算高度</span></div><div class="segmented" id="curve-modes"><button data-curve="live" class="active">离焦 S · 实时仿真</button><button data-curve="real">实测 S · DAC F 参考</button></div></div><div class="curve-readings"><span id="s-fes"></span><span id="s-position"></span><strong id="s-state"></strong></div><canvas id="s-chart"></canvas><p id="s-note" class="s-note"></p><div class="recovery-controls"><button id="recover" class="quiet" disabled>在当前 X 重试找焦</button><span id="baseline-text">初始 Z₀ / FES₀ 不随回中或搜索重置。</span></div></section>
-<section class="raw-signal card"><div class="panel-head"><div><h2>原始 FES 与找焦记录</h2><span class="sub">移动与搜索过程用于判断线索；只有停稳后的有效平均才生成高度点</span></div><button id="export-raw" class="quiet">导出原始记录</button></div><div class="curve-readings"><span id="raw-info"></span><span id="focus-info"></span><strong id="direction-info"></strong></div><canvas id="raw-chart"></canvas><div class="signal-key"><span class="raw-x">X 移动 · Z 保持</span><span class="raw-search">固定 X 搜索 / 回中</span><span class="raw-average">停稳平均</span><span>边缘留空继续；方向提示仍需找焦验证</span></div></section>
-<section class="process card"><div class="steps" id="workflow"><div data-phase="x"><b>01</b><span>X 移动 · 记录原始 FES</span></div><div data-phase="probe"><b>02</b><span>X 停稳 · 判断工作区</span></div><div data-phase="z"><b>03</b><span>直接测 / Z 回中 / 搜索</span></div><div data-phase="settle"><b>04</b><span>停稳 · FES/Z 同步平均</span></div><div data-phase="record"><b>05</b><span>统一基准合成高度</span></div></div><p id="process-text">先在第一个采样点建立光学与光栅零基准，再开始逐点扫描。仿真初始点默认已对焦。</p><div class="progress"><span id="progress-fill"></span></div></section>
-<section class="profile card"><div class="panel-head"><div><h2>扫描结果</h2><span class="sub">一条 X 扫描线得到二维高度轮廓；增加 Y 扫描才能得到面形图</span></div><div class="legend"><span class="truth">模型真实高度</span><span class="measured">重建高度</span><span class="invalid">无效采样</span></div><button id="export" class="quiet">导出 CSV</button></div><canvas id="profile-chart"></canvas><div class="stats"><span id="point-count">0 / 1001 点</span><span id="correction-count">Z 补偿 0 次</span><span id="error-stat">有效点最大误差 —</span><span class="warning">读数分辨率 ≠ 定位准确度</span></div></section>
-<details class="settings card"><summary>仿真参数与边界 <span>假设参数，可修改后重新扫描</span></summary><div class="settings-grid">
- <label>标定斜率 k <span>mV/µm</span><input id="slope" type="number" value="-17.45" step="0.1"></label>
- <label>可用线性区全宽 <span>µm</span><input id="linear" type="number" value="4" min="1" max="6" step="0.5"></label>
- <label>直接测量工作带 ± <span>µm，小变化在此带内不动 Z</span><input id="threshold" type="number" value="1.4" min="0.1" max="2.9" step="0.1"></label>
- <label>单次找焦范围 ± <span>µm</span><input id="search" type="number" value="200" min="5" max="1000" step="10"></label>
- <label>Z 相对软限位 ± <span>µm</span><input id="zLimit" type="number" value="1500" min="50" max="3000" step="50"></label>
- <label>FES 噪声幅度 <span>mV</span><input id="noise" type="number" value="0" min="0" max="2" step="0.05"></label>
- <label>扫描线 Y <span>µm，样品坐标</span><input id="row" type="number" value="950" min="0" step="0.5"></label>
- <label>X 期望速度 <span>µm/s</span><input id="xSpeed" type="number" value="100" min="0.1" max="5000" step="10"></label>
- <label>Z 搜索 / 回中速度 <span>µm/s</span><input id="zSpeed" type="number" value="100" min="1" max="5000" step="10"></label>
- <label>原始数据采样率 <span>sample/s，与平均窗口独立</span><input id="rawHz" type="number" value="1000" min="100" max="10000" step="100"></label>
- <label>最终稳定平均窗口 <span>ms，可调整，不固定为 20 ms</span><input id="averageMs" type="number" value="20" min="1" max="500" step="1"></label>
- <label>X 到位等待 <span>ms，理想化稳定等待</span><input id="xSettleMs" type="number" value="50" min="0" max="1000" step="10"></label>
- <label>Z 到位等待 <span>ms，理想化稳定等待</span><input id="zSettleMs" type="number" value="100" min="0" max="1000" step="10"></label>
- <label>搜索粗步长 <span>µm，精定位由 FES 反馈完成</span><input id="searchStep" type="number" value="0.5" min="0.05" max="1" step="0.05"></label>
- <label class="check"><input id="reacquire" type="checkbox" checked>方向不明时自动限程搜索</label>
- <label class="check"><input id="continueEdges" type="checkbox" checked>边缘点留空，自动继续下一点</label>
-</div><div class="limitations"><p><b>计算流程：</b>X 按所设速度到点，Z 保持，连续记录 FES；用已确认支路上的历史趋势确定优先回正方向。到点后直接测量、回中或固定 X 搜索，候选验证、停稳平均后才合成高度。搜索不重置 FES₀/Z₀。边缘点留空继续，后续单一表面重新找焦；搜索失败、软限位或记录上限仍暂停。</p><p><b>仿真边界：</b>光斑、回波、支路、稳定过程为理想示意；X 匀速不保证采到完整峰谷。方向趋势仅为优先线索，矛盾、噪声大或采样不足时不猜方向，按限程双向搜索验证。10/50 nm 为读数量化，不是准确度。实测 DAC F 曲线不参与微米高度换算。</p><p><b>空间与安全：</b>允许暂时失焦不等于允许碰撞。边缘留空不是插值补高度；实际设备仍需软硬限位、碰撞保护和安全搜索路径。取消“边缘点留空继续”可恢复逐点严格暂停模式。</p></div></details>
-<footer>XZ / OPU DEMONSTRATOR <span>公开分享版 · 纯仿真 · 参数非硬件验收值</span><a href="about.html" target="_blank">说明与操作流程 ↗</a></footer>
-</main><script src="vendor/three.min.js"></script><script src="geometry.js"></script><script src="physics.js"></script><script src="real_s_curve.js"></script><script src="micro_view.js"></script><script src="app.js"></script></body></html>
+<section class="boundary" aria-label="适用范围"><strong>这是仿真，不是硬件验收。</strong> XZ 演示中的读数分辨率不等于定位准确度；光路实验采用声明参数下的 650 nm 标量参考模型，不是 SF-HD65 原厂处方复刻，也不直接预测实机 mV 摆幅。两套实验尚未互相耦合，数据在访问者浏览器内处理，没有测量数据上传接口。</section>
+<section class="versions" aria-labelledby="versions-title"><h2 id="versions-title">固定版本入口</h2><table><thead><tr><th scope="col">演示</th><th scope="col">版本</th><th scope="col">说明</th></tr></thead><tbody><tr><td><a href="xz/v1.2.0/">XZ 扩大量程</a></td><td>v1.2.0<span class="version-label">2026-10-08</span></td><td>保留原演示计算逻辑，增加项目导航。</td></tr><tr><td><a href="optics/v2.0.0/">OPU 光路 / 四象限</a></td><td>v2.0.0<span class="version-label">2026-10-13</span></td><td>本地最终版；本次仅做公开分享适配。</td></tr></tbody></table></section>
+</main>
+<footer><span>合集发布 v1.3.0 · 2026-10-15</span><span>GitHub Pages · 公开访问 · 无需密码</span><a href="releases.json">版本清单</a></footer>
+</body></html>

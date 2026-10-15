@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "version": "2.0.0",
+  "checks": [
+    "FFT inverse and Parseval",
+    "matched stratified phase",
+    "four-quadrant diagonal symmetry",
+    "sample and objective opposite displacement response",
+    "letter mapping sign",
+    "ideal PC translation invariance",
+    "finite aperture clipping",
+    "reflectance scales power not normalized FES",
+    "dark signal invalid",
+    "flat X translation invariant",
+    "micro-step plateau height changes defocus",
+    "far defocus sampling guard",
+    "no-PC refocus valid",
+    "256/512 grid convergence"
+  ],
+  "baseline": {
+    "nfes": -0.0022343208064304837,
+    "power": 0.07932522186683258
+  },
+  "plus1um": 0.5152886619589517,
+  "minus1um": -0.5188970894818535,
+  "noPCRecommendedSampleZ": -228.5031645569619,
+  "noPCNearFocus": -0.46094904171956524,
+  "gridDifference": 0.000010967273689321821,
+  "scope": "reference scalar wave/phase-screen model; NOT validated actual SF-HD65 voltage"
+}

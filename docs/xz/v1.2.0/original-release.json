@@ -1,0 +1,19 @@
+{
+  "version": "1.2.0",
+  "tag": "v1.2.0",
+  "sourceCommit": "8c79383bacb6b7abc3c662290d0b6a7bd7813331",
+  "adaptation": "Only common navigation was added to index.html and about.html. All simulation assets are byte-identical.",
+  "sha256": {
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "about.html": "193fb8c264796382157c5d509fe2b22ed33b6c0dc852ad284847f59dfeb3e80a",
+    "app.js": "cfd61a4e66b42bef3036f37f9f5b87fb5bea8d9f169c0e4554da505dddb0c49b",
+    "geometry.js": "678b620e60f6c8de30a917d559126b02c8b2b38432996ec6eff4fd79d6d5e2d8",
+    "index.html": "000867b4f0d45f80e4a58fc8a864da8cab81bc0bbebaa879be070f6402878610",
+    "micro_view.js": "dbd4cdc7e0bc20f677e04a7b0b6f8124be6599245addb4aa1709aa41b5587a2d",
+    "physics.js": "1b20952961ceac2544eb9cebe897dfb84ee7ddcc94a6fc9bf5fd252eaf1302b0",
+    "real_s_curve.js": "beb39c8e8d6017e76820daf59b15738f781c635180eccaa771a13016873501ef",
+    "style.css": "f0846dc5bccd77b8eb002399d68e62e4a114ded19e83fee7d8f8d996c7b4d443",
+    "vendor/THREE-LICENSE.txt": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+    "vendor/three.min.js": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+  }
+}

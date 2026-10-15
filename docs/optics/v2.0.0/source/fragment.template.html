@@ -1,0 +1,76 @@
+<div id="opu-roundtrip-v200">
+  <style>
+    #opu-roundtrip-v200{color:var(--foreground);font-size:var(--font-size-base);padding:8px 0}
+    #opu-roundtrip-v200 h2,#opu-roundtrip-v200 h3{margin:0 0 8px}
+    #opu-roundtrip-v200 .rt-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-right:96px}
+    #opu-roundtrip-v200 .rt-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:12px 0}
+    #opu-roundtrip-v200 .rt-number{display:flex;align-items:center;gap:10px}
+    #opu-roundtrip-v200 .rt-number>label{flex:1;min-width:0}
+    #opu-roundtrip-v200 .rt-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;margin:16px 0}
+    #opu-roundtrip-v200 .rt-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:16px}
+    #opu-roundtrip-v200 .rt-scene{height:460px}
+    #opu-roundtrip-v200 .rt-micro{height:330px}
+    #opu-roundtrip-v200 .rt-image,#opu-roundtrip-v200 .rt-curve{height:256px}
+    #opu-roundtrip-v200 canvas{display:block;width:100%;height:100%}
+    #opu-roundtrip-v200 .rt-scene canvas,#opu-roundtrip-v200 .rt-micro canvas{touch-action:none}
+    #opu-roundtrip-v200 .rt-values{display:flex;flex-wrap:wrap;gap:18px;margin:8px 0}
+    #opu-roundtrip-v200 details{margin:14px 0}
+    #opu-roundtrip-v200 .rt-caption{margin:5px 0}
+    @media(max-width:900px){#opu-roundtrip-v200 .rt-controls{grid-template-columns:repeat(2,minmax(0,1fr))}#opu-roundtrip-v200 .rt-grid{grid-template-columns:minmax(0,1fr)}#opu-roundtrip-v200 .rt-sub{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){#opu-roundtrip-v200 .rt-controls,#opu-roundtrip-v200 .rt-sub{grid-template-columns:minmax(0,1fr)}#opu-roundtrip-v200 .rt-scene{height:410px}#opu-roundtrip-v200 .rt-head{padding-right:0}}
+  </style>
+  <div class="rt-head"><h2>OPU 全光路 · 实时四象限实验台</h2><span class="text-small">v2.0.0 · 2026-10-13</span></div>
+  <div class="text-small rt-caption">截图拓扑＋650 nm DVD 主束参考模型；非 SF-HD65 原厂处方 · 直接调节或拖动物镜、PC、样品</div>
+  <div class="viz-controls">
+    <label class="form-check form-switch"><input type="checkbox" class="form-check-input" data-param="pc" checked><span class="form-check-label" data-el="pc-label">添加 0.6 mm PC</span></label>
+    <label class="form-label">反射样品<select class="form-select" data-param="surface"><option value="flat">平面反射镜</option><option value="step">0.8 µm 微台阶</option><option value="ramp">微斜坡</option></select></label>
+    <button class="btn" type="button" data-el="focus">样品移至理论最亮面</button>
+    <label class="form-label">计算网格<select class="form-select" data-param="grid"><option value="256">256 · 快速</option><option value="512" selected>512 · 精细</option></select></label>
+    <label class="form-label">光斑视野<select class="form-select" data-el="view"><option value="close" selected>局部放大</option><option value="wide">整体视野</option></select></label>
+  </div>
+  <div class="rt-controls">
+    <div><label class="form-label">样品 Z <span class="text-small">正值＝远离物镜，µm</span><input class="form-control" type="number" data-param="sampleZ" min="-350" max="150" step="0.1" value="0"></label><input class="form-range" type="range" data-range="sampleZ" min="-350" max="150" step="0.1" value="0" aria-label="样品 Z 位移，微米"></div>
+    <div><label class="form-label">物镜 Z <span class="text-small">正值＝靠近样品，µm</span><input class="form-control" type="number" data-param="lensZ" min="-100" max="350" step="0.1" value="0"></label><input class="form-range" type="range" data-range="lensZ" min="-100" max="350" step="0.1" value="0" aria-label="物镜 Z 位移，微米"></div>
+    <div><label class="form-label">PC 前表面 Z <span class="text-small">相对固定基准，µm</span><input class="form-control" type="number" data-param="pcZ" min="20" max="1900" step="1" value="1000"></label><input class="form-range" type="range" data-range="pcZ" min="20" max="1900" step="1" value="1000" aria-label="PC 的前表面位置，微米"></div>
+    <div><label class="form-label">样品 X <span class="text-small">平面镜不改变高度，µm</span><input class="form-control" type="number" data-param="sampleX" min="-20" max="20" step="0.1" value="0"></label><input class="form-range" type="range" data-range="sampleX" min="-20" max="20" step="0.1" value="0" aria-label="样品 X 位移，微米"></div>
+    <div><label class="form-label">样品倾角 <span class="text-small">度</span><input class="form-control" type="number" data-param="sampleTilt" min="-0.2" max="0.2" step="0.01" value="0"></label><input class="form-range" type="range" data-range="sampleTilt" min="-0.2" max="0.2" step="0.01" value="0" aria-label="样品倾斜角，度"></div>
+    <div><label class="form-label">PC 通光直径 <span class="text-small">mm；小口径会截光</span><input class="form-control" type="number" data-param="pcDiameter" min="0.4" max="4" step="0.1" value="3.2"></label><input class="form-range" type="range" data-range="pcDiameter" min="0.4" max="4" step="0.1" value="3.2" aria-label="PC 通光直径，毫米"></div>
+  </div>
+  <div class="rt-values tabular-nums" aria-live="polite"><span>归一化 FES <span data-el="nfes">—</span></span><span>四象限总回光 <span data-el="power">—</span></span><span>物镜 → 样品 <span data-el="distance">—</span></span><span data-el="timing"></span></div>
+  <div class="text-small rt-caption" data-el="status" role="status">正在计算</div>
+  <div class="rt-grid">
+    <div><h3>完整去程与回程 · 理论折叠布局</h3><div class="rt-scene"><canvas data-el="scene" class="cursor-interaction" role="img" aria-label="从激光、光栅、准直镜、分光与折转元件、物镜、PC和样品，再返回像散镜及四象限的完整主光束路径；可拖动三个活动元件"></canvas></div><div class="text-small rt-caption">去程实线 · 回程虚线；内部间距为明确的理论假设，不是照片像素测量值</div></div>
+    <div><h3>物镜前局部 · PC 可直接拖动</h3><div class="rt-micro"><canvas data-el="micro" class="cursor-interaction" role="img" aria-label="等比例局部光路；直接拖动物镜、PC或样品即可重算"></canvas></div><div class="text-small rt-caption">横纵同尺度 mm；PC 片移动不自动改变样品位置或偷偷重新对焦</div><div class="text-small rt-caption">微台阶采用局部薄相位面近似；跨边缘时可能出现混合回光</div></div>
+  </div>
+  <div class="rt-sub">
+    <div><h3>样品面衍射焦斑</h3><div class="rt-image"><canvas data-el="sample-image" role="img" aria-label="由出射瞳面复振幅计算的样品平面强度；坐标轴显示实际微米视野"></canvas></div><div class="text-small rt-caption">固定对数亮度；视野范围见坐标，非人工绘制的光斑</div></div>
+    <div><h3>PDIC 回光光斑与四象限</h3><div class="rt-image"><canvas data-el="detector-image" role="img" aria-label="经双程传播及像散镜傅里叶变换的探测器强度；四象限采用面积积分"></canvas></div><div class="text-small rt-caption" data-el="quadrants"></div></div>
+    <div><h3>当前配置的 S 曲线</h3><div class="rt-curve"><canvas data-el="curve" role="img" aria-label="根据当前 PC、物镜、像散与样品条件逐点求解的归一化焦误差曲线"></canvas></div><div class="text-small rt-caption" data-el="curve-status">配置变化后自动重算；不是预存的 S 曲线</div></div>
+  </div>
+  <details><summary>更多实验参数</summary><div class="viz-controls">
+    <label class="form-label">PC 折射率<input class="form-control" type="number" data-param="pcIndex" value="1.58" min="1.45" max="1.65" step="0.001"></label>
+    <label class="form-label">PC 厚度 (µm)<input class="form-control" type="number" data-param="pcThickness" value="600" min="200" max="800" step="1"></label>
+    <label class="form-label">激光束腰 (µm，假设)<input class="form-control" type="number" data-param="waist" value="1.2" min="0.8" max="2.5" step="0.1"></label>
+    <label class="form-label">像散焦面间距 (µm，假设)<input class="form-control" type="number" data-param="astigSeparation" value="80" min="0" max="200" step="1"></label>
+    <label class="form-label">PDIC 轴向偏移 (µm)<input class="form-control" type="number" data-param="detectorZ" value="0" min="-100" max="100" step="1"></label>
+    <label class="form-label">样品反射率<input class="form-control" type="number" data-param="reflectance" value="0.7" min="0" max="1" step="0.05"></label>
+    <label class="form-label">微台阶 / 斜坡高度 (µm)<input class="form-control" type="number" data-param="stepHeight" value="0.8" min="0" max="2" step="0.1"></label>
+    <label class="form-label">象限字母<select class="form-select" data-param="quadrantLayout"><option value="sf">SF-HD65 受光面 c/b/d/a</option><option value="paper">截图中心探测器 D/A/C/B</option></select></label>
+  </div></details>
+  <details><summary>模型参数、计算链与可靠性边界</summary>
+    <div class="table-responsive"><table class="table table-sm"><thead><tr><th>部分</th><th>参数 / 实现</th><th>性质</th></tr></thead><tbody>
+      <tr><td>通道</td><td>650 nm、NA 0.60、f 3.05 mm；0.6 mm / n=1.58 覆盖层参考匹配</td><td>DVD 参考；不同时发射三种波长</td></tr>
+      <tr><td>源与准直镜</td><td>高斯束 q 参数；束腰1.2 µm、准直焦距6 mm、源到镜6 mm</td><td>理论假设，可改变束腰</td></tr>
+      <tr><td>折叠位置</td><td>源(-12,0)、准直镜(-6,0)、PBS(0,0)、折转(10,0)、物镜(10,2) mm</td><td>沿截图拓扑构造的参考位置</td></tr>
+      <tr><td>分光与光栅</td><td>主阶效率0.85；去/回程0.5/0.5；折转反射0.95</td><td>标量等效效率；不是已知镀膜或 Jones 偏振复刻</td></tr>
+      <tr><td>物镜 / PC</td><td>高 NA 分层介质相位；Snell 几何追迹；有限片径的瞳面截光近似</td><td>参考等效物镜，不是已公开曲面处方</td></tr>
+      <tr><td>样品与回程</td><td>二维出射衍射、反射振幅/表面相位、回瞳重建、再过物镜/PC</td><td>双程计算；微台阶为局部薄相位面近似</td></tr>
+      <tr><td>像散镜 / PDIC</td><td>两主焦距7.96/8.04 mm、主轴45°；PD宽160 µm、间隙1 µm</td><td>理论检测支路；计算强度积分，不手绘椭圆</td></tr>
+      <tr><td>输出</td><td>(a+c−b−d) / Σ；总回光为相对输入归一化功率</td><td>无 mV、无精度保证；非矢量电磁或完整电子仿真</td></tr>
+      <tr><td>未包含</td><td>PC 多重鬼像/干涉、实际偏振镀膜、CD/Blu-ray 及跟踪副光束</td><td>不要将结果当作原厂或实测预测</td></tr>
+      <tr><td>数值验收</td><td>FFT 能量/逆变换、四象限对称、位移符号、PC平移不变性、截光与网格收敛测试</td><td>网格不足或回光不足时不输出有效 FES</td></tr>
+    </tbody></table></div>
+  </details>
+  <script>__ENGINE_SOURCE__</script>
+  <script>__APP_SOURCE__</script>
+</div>

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "version": "2.0.0",
+  "errors": [],
+  "checks": [
+    "offline resources blocked",
+    "no fixed playback control",
+    "numeric input updates quadrant intensity",
+    "sample/objective opposite response",
+    "actual pointer PC dragging",
+    "no-PC defocus invalid and refocus valid",
+    "microstep X changes sensed height",
+    "geometry collision rejection",
+    "S curve real solve completion",
+    "mobile no overflow",
+    "light/dark screenshots"
+  ]
+}

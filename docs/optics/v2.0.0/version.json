@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "date": "2026-10-13",
+  "topology": "user-provided typical triple-wavelength OPU figure; single DVD main-channel reference implementation",
+  "actual_SFHD65_prescription": false,
+  "absolute_FES_mV": false,
+  "full_vector_polarization": false,
+  "PC_ghost_reflections": false,
+  "sample_surface": "planar reflection / local thin phase surface",
+  "internal_dimensions": "declared reference assumptions, not photo-derived measurements",
+  "algorithm": "Gaussian source/collimator, scalar efficiencies, reference objective/stratified phase, sample Fourier field/reflection, return pupil, astigmatic Fourier detector and quadrant area sums",
+  "sources": [
+    "https://doi.org/10.1021/acssensors.8b00340",
+    "https://www.farnell.com/datasheets/1668703.pdf",
+    "https://opg.optica.org/ao/abstract.cfm?uri=ao-33-5-735"
+  ],
+  "sha256": {
+    "engine.js": "503fdb35b82a31881ee2fb9e17906bd2105bab324387364978fc1ae7ac96ebb4",
+    "app.js": "b8316c81e06b0ea5cd38845bd4f3cb72c6d77e82977b9a5e948b4e9d3ab6a71e",
+    "fragment.template.html": "de5c39228afa0fde2e2952c1db8ff919025008037f6c3bec74999981dac8c2bd"
+  },
+  "publication": {
+    "date": "2026-10-15",
+    "sourceHtmlSha256": "23994bdcd2cac5372b056c5759de268dab995ce4846d899af2886bcfd66f1157",
+    "publishedHtmlSha256": "363d9c112da721308669038d20c03b62bb6e4b35d43c95ecd2f3589505f65e0d",
+    "changes": "Common navigation, Chinese document title/language, removal of unused external helper scripts. Numerical model unchanged."
+  }
+}

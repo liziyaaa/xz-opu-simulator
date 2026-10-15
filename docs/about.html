@@ -1,12 +1,1 @@
-<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>XZ × OPU · 版本与操作说明</title><link rel="stylesheet" href="style.css"></head>
-<body><main style="max-width:900px;margin:40px auto;padding:20px"><section class="card" style="padding:28px">
-<h1>XZ × OPU 扩大量程演示</h1><p>仿真版本 v1.2.0（2026-10-08）· GitHub Pages 分享版（2026-10-11）</p>
-<p><a href="index.html">返回交互演示 →</a></p>
-<h2>如何演示</h2><p>选择样品、光栅读数分辨率与 X 取点步长，点击“开始扫描”或“单步”。使用左侧、正面、右侧视角查看装配；微观窗口沿相同方向显示微米比例焦斑与样品轮廓。</p>
-<h2>测量流程</h2><p>X 按设定速度移动，Z 暂时保持。到点后，小变化通过已标定线性支路的 FES 换算；大变化固定 X，由 Z 限程寻找有效支路并回中。停稳平均后，将光栅 Z 读数与 FES 残余位移合成相对高度，统一保留初始基准。</p>
-<p>历史 FES 趋势只提供优先搜索方向，不保证在突变或失焦时能够唯一确定方向。边缘点默认留空继续；搜索失败、软限位或记录上限会暂停。可展开高级参数更改等待、速度、噪声和搜索配置。</p>
-<h2>版本与适用边界</h2><p>这是浏览器本地运行的仿真，不连接真实电机、串口或 OPU。10/50 nm 是读数量化选项，不代表整套设备的准确度；微观焦斑依据 SF-HD65 手册光学参数作理想衍射估算，不是实测光斑。</p>
-<p>公开页面无需密码。扫描和导出在访问者浏览器中完成，无上传接口。本地原有历史版本与原始 CAD、测试 CSV 和整本手册不随本分享版发布。</p>
-<p>建议使用支持 WebGL 的现代浏览器；复杂三维场景在低性能手机上可能较慢。第三方三维库授权见 <a href="vendor/THREE-LICENSE.txt">Three.js LICENSE</a>。</p>
-</section></main></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=xz/v1.2.0/about.html"><title>XZ 演示说明已迁移</title></head><body><p>XZ 扩大量程演示说明已保存在独立版本目录。<a href="xz/v1.2.0/about.html">打开原演示说明</a> · <a href="./">返回仿真首页</a></p></body></html>
