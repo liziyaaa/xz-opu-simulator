@@ -11,7 +11,7 @@ const out=path.join(__dirname,'../qa-results');fs.mkdirSync(out,{recursive:true}
   page.on('response',r=>{if(r.status()>=400)failed.push({url:r.url(),status:r.status()});});
   page.on('request',r=>{if(/^https?:/.test(r.url())&&new URL(r.url()).origin!==base.origin)unexpected.push(r.url());});
   const response=await page.goto(base.href);assert.equal(response.status(),200);
-  assert.equal(await page.locator('[data-demo]').count(),2);
+  assert.equal(await page.locator('[data-demo]').count(),3);
   await page.screenshot({path:path.join(out,'portal-desktop.png'),fullPage:true});
   await page.setViewportSize({width:360,height:900});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
@@ -60,7 +60,7 @@ const out=path.join(__dirname,'../qa-results');fs.mkdirSync(out,{recursive:true}
   await page.goto(new URL('about.html',base).href);await page.waitForURL('**/xz/v1.2.0/about.html');
   checks.push('two home entries','desktop/mobile/dark portal','numeric optics response','sample/objective opposite signs','PC pointer drag','PC removal and refocus','recalculated S curve','mobile optics no overflow','XZ samples/views/10nm/single-step','navigation and original about redirect','versioned links and manifests');
   assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);assert.deepEqual(unexpected,[]);
-  const result={passed:true,base:base.href,collectionVersion:'1.3.0',checks,errors,failed,unexpectedExternalRequests:unexpected};
+  const result={passed:true,base:base.href,collectionVersion:'1.4.0',checks,errors,failed,unexpectedExternalRequests:unexpected};
   fs.writeFileSync(path.join(out,base.hostname==='127.0.0.1'?'local-verification.json':'deployed-verification.json'),JSON.stringify(result,null,2));
   console.log(JSON.stringify(result,null,2));
  }finally{await browser.close();}

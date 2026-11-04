@@ -1,3 +1,4 @@
 # Release audits use byte hashes, including line endings.
 docs/xz/v1.2.0/** -text
 docs/optics/v2.0.0/** -text
+docs/xz/v1.3.0/** -text

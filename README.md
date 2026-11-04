@@ -2,10 +2,11 @@
 
 在线首页：<https://liziyaaa.github.io/xz-opu-simulator/>
 
-合集发布 **v1.3.0 · 2026-10-15**。两套独立仿真共用首页和页面导航，公开访问，无需密码或 ChatGPT 账号。没有把两个模型强行耦合，也没有改动其计算逻辑。
+合集发布 **v1.4.0 · 2026-11-04**。新版 XZ 增加 FES / RF 观察与 Bump 阵列；原 XZ 和独立光路演示保留不变。公开访问，无需密码或 ChatGPT 账号。
 
 | 演示 | 固定入口 | 模型版本 | 内容 |
 | --- | --- | --- | --- |
+| XZ FES / RF Bump 观察版 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.3.0/) | v1.3.0 | 镜片/硅片实测配对信号、35%/95%材料锚点、2094个凸点、手动固定Y及多行记录。RF仅显示，不新增找焦策略。 |
 | XZ 扩大量程测量 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.2.0/) | v1.2.0 | X 逐点扫描、FES / Z 找焦、统一基准合成高度；六种样品与三维 / 微观视图。 |
 | OPU 光路 / 四象限 | [打开](https://liziyaaa.github.io/xz-opu-simulator/optics/v2.0.0/) | v2.0.0 | 650 nm 主通道往返传播、拖动 PC / 物镜 / 样品、焦斑、四象限积分与 S 曲线。 |
 
@@ -16,6 +17,15 @@
 - 光路模型的 `engine.js`、`app.js` 和模板与本地最终版 SHA-256 一致；独立参数及校验见该目录 `version.json` 和 `model.html`。
 - 保留已有 `v1.2.0` 标签，合集使用新 `v1.3.0` 标签；以后新增标签，不移动原标签。各模型版本号与合集版本号分开。
 - 原 CAD、完整测试 CSV、整本手册、私人本地路径与凭据不随分享版上传。
+- 新 XZ 观察版固定目录 `docs/xz/v1.3.0/`，用新合集标签 `v1.4.0`；旧 `v1.3.0` 合集标签也保持原指向。
+
+## FES / RF 观察版
+
+选择固定 Y 和 X 起终点后运行。开始后 Y 与材料/标定参数锁定，暂停不解锁；点击“结束并保存当前行”后可换 Y，保留历史行叠加并导出。刷新/关闭前请导出，历史不跨浏览器会话持久化。
+
+FES 和 RF 按同一扫描相位配对，不从单个 FES 电压反查唯一 RF。镜片95%、硅片35%是用户指定的反射率锚点，分别对两路电压线性插值并保留偏置。凸点95%只是初始模拟设置，不是锡实测；暂不考虑倾斜。默认4 µm中心支路宽度是演示空间尺度，原数据没有同步Z标定。RF独立时间导出与FES近似对齐，不支持亚秒延迟结论。
+
+原始记录及几何位置来源审计在新目录 `version.json` 和派生数据中。开发时使用 `node tools/build-observation-data.cjs --silicon-dir <目录> --mirror-dir <目录> --bump-dir <目录> --out-dir docs/xz/v1.3.0`，不会修改原实验文件。
 
 ## 范围与隐私
 
@@ -38,6 +48,8 @@ node checks/portal.cjs http://localhost:8000/
 node checks/smoke.cjs http://localhost:8000/xz/v1.2.0/
 node checks/integrity.cjs
 node checks/optics-engine.cjs
+node --test checks/observation-*.test.cjs
+node checks/observation-browser.cjs http://localhost:8000/xz/v1.3.0/
 ```
 
 `qa-results/` 为忽略的本地校验结果目录。`tools/import-optical.cjs <本地v2.0.0目录>` 可重新打包分享适配版，导入前会核对模型源码审计哈希。它不会复制原始测量数据或整本手册。
