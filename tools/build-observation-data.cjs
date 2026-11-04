@@ -11,7 +11,8 @@ function anchor(root,reflectance){
  const dir=path.join(root,'裁剪与重复性分析_20261104'),stats=csv(path.join(dir,'8次扫描特征统计.csv')),sourceHashes={},passes=[];
  for(const s of stats){const n=Number(s.scan_id),files=[`第${String(n).padStart(2,'0')}次_FES_裁剪.csv`,`第${String(n).padStart(2,'0')}次_RF_裁剪.csv`];
   const arrays=files.map((f,j)=>{const p=path.join(dir,f);sourceHashes[f]=hash(p);return csv(p).map(r=>({t:Number(r.original_time_s),v:Number(r[j?'adc1_mv':'fes_mean_mv'])})).filter(p=>Number.isFinite(p.t)&&Number.isFinite(p.v)).sort((a,b)=>a.t-b.t);});
-  const [fes,rf]=arrays,k=-Math.sign(Number(s.central_slope_mv_per_s)),d=Number(s.peak_interval_s),c=Number(s.fes_midpoint_time_s),points=[];
+  const [fes,rf]=arrays;passPhase(Number(s.fes_midpoint_time_s),s);
+  const k=-Math.sign(Number(s.central_slope_mv_per_s)),d=Number(s.peak_interval_s),c=Number(s.fes_midpoint_time_s),points=[];
   for(let i=0;i<=600;i++){const u=-2.4+i*.008,t=c+u*d/k,f=interpolate(fes,t,.15),r=interpolate(rf,t,.5);points.push({u:round(u),fesMv:round(f),rfMv:round(r),rfAvailable:r!==null});}
   passes.push({scanId:n,peakOrder:s.peak_order,originalTimeRangeS:[Number(s.start_s),Number(s.end_s)],peakIntervalS:d,fesCenterTimeS:c,fesRows:fes.length,rfRows:rf.length,rfGaps:rf.slice(1).flatMap((p,i)=>p.t-rf[i].t>.5?[[rf[i].t,p.t]]:[]),points});
  }

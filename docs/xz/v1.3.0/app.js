@@ -3,9 +3,10 @@
 const $=id=>document.getElementById(id), P=window.XZPhysics;
 const APP_VERSION='1.3.0';
 const rowStore=new XZRows.Store();
+let rawExportedCount=0;
 const rowControls=['sample','encoder','step','base-reflectance','bump-reflectance','reference-reflectance','response-pass','row','row-slider','scan-start','scan-end','linear','threshold','search','zLimit','noise','reacquire','continueEdges','xSpeed','zSpeed','rawHz','averageMs','xSettleMs','zSettleMs','searchStep','optical-mode'];
 function lockRow(){if(!rowStore.locked)rowStore.lock();rowControls.forEach(id=>$(id).disabled=true);$('reset').disabled=true;}
-function finishRow(){playing=false;if(!sim)return;try{if(sim.records.length||sim.pending){const raw=sim.pending?sim.raw.concat(traceShown):sim.raw;rowStore.finish({records:sim.records,raw,baseline:{fes0:sim.fes0,z0:sim.z0},meta:metadata('xz_opu_observation_v1'),partialCurrentPoint:!!sim.pending});}else if(rowStore.locked){rowStore.locked=false;rowStore.current=null;}rowControls.forEach(id=>$(id).disabled=false);$('reset').disabled=false;reset();}catch(e){$('process-text').textContent=e.message+'；请先导出当前行。';}return rowStore.list();}
+function finishRow(){playing=false;if(!sim)return;try{if(sim.records.length||sim.pending){const raw=sim.pending?sim.raw.concat(traceShown):sim.raw,snapshot={records:sim.records,raw,baseline:{fes0:sim.fes0,z0:sim.z0},meta:metadata('xz_opu_observation_v1'),partialCurrentPoint:!!sim.pending};try{rowStore.finish(snapshot);}catch(e){if(!/capacity/.test(e.message))throw e;if(rawExportedCount!==raw.length||!raw.length){$('process-text').textContent='本行过程记录超出会话容量。请先点“导出原始记录”保存完整数据，再点结束，确认仅保留汇总。';return;}if(!confirm('已发起 '+raw.length+' 条原始记录的下载。请确认已经保存文件；继续后本行仅在会话保留汇总，原始过程不再保留。'))return;rowStore.finish({...snapshot,raw:[],rawCount:raw.length,rawExternalOnly:true});}}else if(rowStore.locked){rowStore.locked=false;rowStore.current=null;}rowControls.forEach(id=>$(id).disabled=false);$('reset').disabled=false;reset();}catch(e){$('process-text').textContent=e.message+'；请导出历史数据后刷新，不会静默删除。';}return rowStore.list();}
 const sampleSelect=$('sample');
 P.samples.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=s.name;sampleSelect.appendChild(o);});
 sampleSelect.value='bump-2x3';
@@ -85,7 +86,7 @@ function buildSample(){
 }
 function update3D(){if(!renderer)return;zGroup.position.y=(zGroup.userData.coarse||0)+displayZ/1000;xGroup.position.x=-(displayX-sim.start)/1000;
  const rel=P.height(sim.sample.id,displayX,sim.row)-sim.h0+displayZ;
- const valid=P.observedLinear(rel-displayZ,displayZ,sim.cfg,0).valid&&P.opticalQuality(sim.sample.id,displayX,sim.row,sim.cfg.spot);
+ const valid=currentReading().valid&&P.opticalQuality(sim.sample.id,displayX,sim.row,sim.cfg.spot);
  halo.position.y=209.5+rel/1000;halo.material.color.set(valid?'#1ac3c5':'#e5a052');needsDraw=true;
 }
 function readConfig(){const cfg={...P.defaultConfig(),opticalMode:$('optical-mode').value,spot:HD65Optics.profile($('optical-mode').value).diameterUm,q:Number($('encoder').value),reacquire:$('reacquire').checked,continueEdges:$('continueEdges').checked,baseReflectance:Number($('base-reflectance').value)/100,bumpReflectance:Number($('bump-reflectance').value)/100,referenceReflectance:Number($('reference-reflectance').value)/100,responseSelection:$('response-pass').value};for(const id of ['linear','threshold','search','zLimit','noise','xSpeed','zSpeed','rawHz','averageMs','xSettleMs','zSettleMs','searchStep'])cfg[id]=Number($(id).value);return cfg;}
@@ -113,7 +114,8 @@ function reset(sampleChanged=false){
  $('row-slider').value=$('row').value;
  const cfg=readConfig(),step=Number($('step').value),row=Number($('row').value),err=validate(cfg,s,step,row);
  if(err){$('process-text').textContent=err;$('status').textContent='参数无效';$('status').className='status invalid';$('play').disabled=true;$('one').disabled=true;$('recover').disabled=true;return false;}
- $('play').disabled=false;$('one').disabled=false;sim=new P.Simulation(s.id,cfg,{step,row,start:Number($('scan-start').value),end:Number($('scan-end').value)});rowStore.begin({...sim.cfg,row,sampleId:s.id,start:sim.start,end:sim.end,step});$('slope').value=sim.cfg.slope.toFixed(4);displayZ=0;displayX=sim.start;displayReading=null;traceShown=[];
+ let next;try{next=new P.Simulation(s.id,cfg,{step,row,start:Number($('scan-start').value),end:Number($('scan-end').value)});rowStore.begin({...next.cfg,row,sampleId:s.id,start:next.start,end:next.end,step});}catch(e){$('process-text').textContent='不能开始新行：'+e.message+'。请导出数据后调整参数或刷新。';$('play').disabled=true;$('one').disabled=true;$('end-row').disabled=!rowStore.current;return false;}
+ $('play').disabled=false;$('one').disabled=false;$('end-row').disabled=false;sim=next;rawExportedCount=0;$('slope').value=sim.cfg.slope.toFixed(4);displayZ=0;displayX=sim.start;displayReading=null;traceShown=[];
  $('sample-title').textContent=s.name;$('sample-note').textContent=s.note+(s.id==='01'?' 3D 显示端面后方 4 mm 局部，其余尾纤裁去；端面尺寸保持 1:1。':'');
  $('linear-left').textContent=`−${cfg.linear/2} µm`;$('linear-right').textContent=`+${cfg.linear/2} µm`;
  microView?.setMode($('optical-mode').value);
@@ -224,7 +226,7 @@ function metadata(schema){const {responseEngine,...config}=sim.cfg;return {schem
 function saveCSV(rows,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function exportCSV(){if(!sim.records.length){$('process-text').textContent='请先记录数据。';return;}saveCSV(recordCSV(sim.records,metadata('xz_opu_observation_v1')), 'XZ_OPU_OBSERVATION_v1.3.0_Y'+sim.row+'.csv');}
 
-function exportRaw(){const data=sim.pending?sim.raw.concat(traceShown):sim.raw;if(!data.length)return;const rows=['# '+JSON.stringify({...metadata('xz_opu_raw_observation_v1'),partial_current_point:!!sim.pending}),'index,time_s,x_um,y_um,z_true_um,z_encoder_um,fes_mv,rf_mv,rf_available,legacy_return_quality,material,reflectance,phase_u,valid,stage',...data.map(r=>[r.index,r.t,r.x,r.y,r.z,r.zEncoder,r.v,r.rfMv??'',r.rfAvailable?1:0,r.returnQuality,r.material,r.reflectance,r.u,r.valid?1:0,r.kind].join(','))];saveCSV(rows,'XZ_OPU_RAW_v1.3.0_Y'+sim.row+'.csv');}
+function exportRaw(){const data=sim.pending?sim.raw.concat(traceShown):sim.raw;if(!data.length)return;const rows=['# '+JSON.stringify({...metadata('xz_opu_raw_observation_v1'),partial_current_point:!!sim.pending}),'index,time_s,x_um,y_um,z_true_um,z_encoder_um,fes_mv,rf_mv,rf_available,legacy_return_quality,material,reflectance,phase_u,valid,stage',...data.map(r=>[r.index,r.t,r.x,r.y,r.z,r.zEncoder,r.v,r.rfMv??'',r.rfAvailable?1:0,r.returnQuality,r.material,r.reflectance,r.u,r.valid?1:0,r.kind].join(','))];saveCSV(rows,'XZ_OPU_RAW_v1.3.0_Y'+sim.row+'.csv');rawExportedCount=data.length;}
 
 $('play').addEventListener('click',()=>{if(!sim||sim.done||sim.halted)return;lockRow();playing=!playing;updateUI();});$('one').addEventListener('click',oneStep);$('recover').addEventListener('click',recoverFocus);$('reset').addEventListener('click',()=>reset());$('export').addEventListener('click',exportCSV);
 $('export-raw').addEventListener('click',exportRaw);
@@ -235,7 +237,9 @@ document.querySelectorAll('#curve-modes button').forEach(b=>b.addEventListener('
 document.querySelectorAll('#views button').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 function recordCSV(records,meta,rowId='current'){return ['# '+JSON.stringify(meta),'row_id,index,x_um,y_um,z_encoder_um,fes_mv,rf_mv,rf_available,material,reflectance,reconstructed_height_um,valid,action,reason',...records.map(r=>[rowId,r.index,r.x,r.y,r.zEncoder,r.fes,r.rfMv??'',r.rfAvailable?1:0,r.material,r.reflectance,r.estimate??'',r.valid?1:0,r.action,r.reason].join(','))];}
 $('end-row').addEventListener('click',finishRow);
-$('export-history').addEventListener('click',()=>{const rows=rowStore.list();if(!rows.length){$('process-text').textContent='请先结束并保存当前行。';return;}saveCSV(rows.flatMap(r=>recordCSV(r.records,r.meta,r.id)), 'XZ_OPU_ROWS_v1.3.0.csv');});
+function exportHistory(raw){const rows=rowStore.rows;if(!rows.length){$('process-text').textContent='请先结束并保存当前行。';return;}saveCSV(XZExports.historyCSV(rows,{raw}),raw?'XZ_OPU_ROWS_RAW_v1.3.0.csv':'XZ_OPU_ROWS_v1.3.0.csv');if(raw&&rows.some(r=>r.rawExternalOnly))$('process-text').textContent='部分超容量行的原始数据已由你确认另存，不在会话；请结合之前单独导出的原始文件。';}
+$('export-history').addEventListener('click',()=>exportHistory(false));
+$('export-history-raw').addEventListener('click',()=>exportHistory(true));
 for(const id of ['base-reflectance','bump-reflectance','reference-reflectance','response-pass','scan-start','scan-end'])$(id).addEventListener('change',()=>reset());
 $('row-slider').addEventListener('input',()=>{if(rowStore.locked)return;$('row').value=$('row-slider').value;reset();});
 $('top-view').addEventListener('pointerdown',e=>{if(rowStore.locked)return;const node=$('top-view'),m=node._mapping;if(!m)return;const y=e.clientY-node.getBoundingClientRect().top;$('row').value=Math.max(0,Math.min(m.depth,m.depth-(y-m.y0)/m.scale)).toFixed(6);reset();});
