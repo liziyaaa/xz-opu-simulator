@@ -1,0 +1,12 @@
+const {test}=require('node:test'),a=require('node:assert/strict'),fs=require('node:fs');
+const file=__dirname+'/../docs/xz/v1.3.0/physics.js';
+test('observation controller implemented',()=>a.ok(fs.existsSync(file),'new controller absent'));
+if(fs.existsSync(file)){
+ const P=require(file),R=require('../docs/xz/v1.3.0/response.js'),data=require('../docs/xz/v1.3.0/measured_response.js');
+ const run=(cfg={},opts={})=>{const s=new P.Simulation('ramp',{...P.defaultConfig(),rawHz:100,...cfg},{start:0,end:40,step:5,row:100,...opts});while(!s.done&&!s.halted){s.prepare();s.commit();}return s;};
+ test('changing only RF leaves every focus action, Z target and height unchanged',()=>{const alt=structuredClone(data);for(const anchor of Object.values(alt.anchors))for(const p of [anchor.representative,...anchor.passes.map(x=>x.points)])for(const v of p)if(v.rfMv!==null)v.rfMv+=999;const s=run(),t=run({responseEngine:R.create(alt)});a.deepEqual(s.records.map(r=>[r.action,r.zTrue,r.estimate,r.valid]),t.records.map(r=>[r.action,r.zTrue,r.estimate,r.valid]));a.ok(s.raw.some((r,i)=>t.raw[i].rfMv!==r.rfMv));a.ok(s.raw.every(r=>r.returnQuality>=0&&r.returnQuality<=1));});
+ test('reference calibration frozen across base/bump material transition',()=>{const s=new P.Simulation('04',{...P.defaultConfig(),rawHz:100},{start:200,end:300,step:25,row:250});const c=s.cfg.calibration;while(!s.done&&!s.halted){s.prepare();s.commit();}a.equal(s.cfg.calibration,c);a.equal(c.referenceReflectance,.35);a.ok(s.raw.some(r=>r.material==='silicon'));a.ok(s.raw.some(r=>r.material==='bump'));a.ok(s.records.filter(r=>!r.valid).every(r=>r.estimate===null));});
+ test('failed search retains FES RF trace and rejects a valid height',()=>{const s=run({search:5,reacquire:false},{start:0,end:1000,step:1000});a.ok(s.halted);a.ok(s.raw.length>10);a.equal(s.records.at(-1).estimate,null);a.ok(s.raw.some(r=>r.rfAvailable));});
+ test('capture limit stops at last sampled coordinate, not intended target',()=>{const s=run({maxRaw:30,xSpeed:1},{start:0,end:100,step:100});a.equal(s.raw.length,30);a.equal(s.currentX,s.raw.at(-1).x);a.equal(s.z,s.raw.at(-1).z);a.equal(s.haltReason,'capture_limit');a.equal(s.records.at(-1).estimate,null);});
+ test('invalid parameter and scan geometry rejected before running',()=>{for(const cfg of [{bumpReflectance:NaN},{baseReflectance:1.1},{rawHz:0}])a.throws(()=>run(cfg));a.throws(()=>run({},{step:0}));a.throws(()=>run({},{row:-1}));});
+}
