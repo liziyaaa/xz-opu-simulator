@@ -2,11 +2,12 @@
 
 在线首页：<https://liziyaaa.github.io/xz-opu-simulator/>
 
-合集发布 **v1.5.0 · 2026-11-05**。新增独立金属丝连续进给实验，原 XZ、FES/RF Bump 和光路演示文件保留不变。公开访问，无需密码或 ChatGPT 账号。
+合集发布 **v1.6.0 · 2026-11-05**。金属丝升级为用户指定完整XZ装配，加左牵引和右放卷支架；所有旧演示保留不变。公开访问，无需密码或 ChatGPT 账号。
 
 | 演示 | 固定入口 | 模型版本 | 内容 |
 | --- | --- | --- | --- |
-| 金属丝连续进给 | [打开](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.0.0/) | v1.0.0 | 左牵引、右放卷、固定焦点；等比例33/30 µm线材、FES/RF代理、横摆/竖振和采样漏检对照。 |
+| 金属丝完整装配 | [打开](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.1.0/) | v1.1.0 | 用户完整XZ平台，新增两支架、牵引轮与放卷筒；五种视角、旋转缩放、同一FES/RF模型。 |
+| 金属丝初版示意 | [保留版本](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.0.0/) | v1.0.0 | 原二维进给及微观演示，独立保留。 |
 | XZ FES / RF Bump 观察版 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.3.0/) | v1.3.0 | 镜片/硅片实测配对信号、35%/95%材料锚点、2094个凸点、手动固定Y及多行记录。RF仅显示，不新增找焦策略。 |
 | XZ 扩大量程测量 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.2.0/) | v1.2.0 | X 逐点扫描、FES / Z 找焦、统一基准合成高度；六种样品与三维 / 微观视图。 |
 | OPU 光路 / 四象限 | [打开](https://liziyaaa.github.io/xz-opu-simulator/optics/v2.0.0/) | v2.0.0 | 650 nm 主通道往返传播、拖动 PC / 物镜 / 样品、焦斑、四象限积分与 S 曲线。 |
@@ -37,6 +38,8 @@ FES 和 RF 按同一扫描相位配对，不从单个 FES 电压反查唯一 RF�
 硅片/镜片响应仅作为形态代理，不是丝材实测；默认涂层35%/裸丝75%、4 µm空间尺度及暗电平是可调假设。支持透明基材之外的裸表面工况演示，但涂层按不透明单反射面处理，不模拟多层干涉。倾角回光系数是圆瞳重叠近似。没有新增自动跟焦或数字判决；失焦不会当0。默认FES50 Hz/RF9 Hz，独立采样点和相位，CSV保留两通道与模型记录。记录最多60秒，刷新或改参数前先导出。
 
 运行 `node --test checks/wire-engine.test.cjs` 和 `node checks/wire-browser.cjs <页面地址>`。审计使用 `node tools/audit-wire.cjs --geometry-dir <只读SMA源目录>`，不上传原STEP。新合集使用v1.5.0标签，旧标签不变。
+
+完整装配版固定在 `docs/wire/v1.1.0/`，合集标签v1.6.0。原170对象/2258实体不变，新增两座带肋概念支架，另存本地CAD副本；网页仅上传简化网格。仅检查新增件与原模型当前静态位置的干涉，未放行强度、动态或加工。CAD间距不作真实工作距离标定；原Bump为可隐藏背景，丝材信号沿用初版。`tools/build-wire-assembly.py`用FreeCAD读取匹配STEP/native、创建副本与显示网格；`tools/reduce-wire-mesh.py`仅减少网页三角面，不改CAD实体；用`node tools/audit-wire-assembly.cjs`生成发布审计。
 
 ## 范围与隐私
 

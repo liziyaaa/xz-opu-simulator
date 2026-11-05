@@ -1,0 +1,83 @@
+{
+  "version": "1.1.0",
+  "date": "2026-11-05",
+  "model": "Complete selected XZ platform with concept wire traction and payout supports; signal kernel unchanged",
+  "geometry": {
+    "coatedDiameterUm": 33,
+    "bareDiameterUm": 30,
+    "bareLengthMm": 1,
+    "coatedIntervalMm": 10.2,
+    "pitchMm": 11.2,
+    "intervalPhotoEstimate": true,
+    "axisFixed": true,
+    "startMm": 5.1
+  },
+  "optics": {
+    "wavelengthNm": 650,
+    "na": 0.6,
+    "airyFirstZeroDiameterUm": 1.322,
+    "gaussianSigmaUm": 0.3305,
+    "axialGaussianIntegral": true,
+    "transverseQuadraturePoints": 5,
+    "pupilCoupling": "equal angular disk overlap approximation; not high-NA ray trace",
+    "coatingModel": "opaque single reflection; no multilayer interference",
+    "coatedReflectanceAssumed": 0.35,
+    "bareReflectanceAssumed": 0.75,
+    "darkLevelMeasured": false,
+    "defaultLinearUm": 4,
+    "spatialScaleCalibrated": false,
+    "wireSignalMeasured": false,
+    "automaticFocus": false,
+    "digitalClassification": false
+  },
+  "sampling": {
+    "modelDisplayHz": 500,
+    "fesHz": 50,
+    "rfHz": 9,
+    "maxDurationS": 60,
+    "actualADCFilter": false,
+    "syntheticNoise": "deterministic two-tone perturbation, not measured spectrum"
+  },
+  "geometrySource": {
+    "verification.json": "2fa38a8aeeb34252b8e77812e07ecd3adcaed8ce776a41f94235e45eacd39cfe",
+    "尺寸与建模说明.txt": "76fea19a9e7b47b24c2aaaa35da652979c8ee53e7ee0ec740c9ab81e866636b6",
+    "SMA_wire_on_blue_base.step": "652303a3d2cca338d2f8e9ce8ff7c409b17058850a0fbd15fec5c62d52c7a4fd"
+  },
+  "dependencies": {
+    "../../xz/v1.3.0/measured_response.js": "72e2753fdaa444228ab50a5b2db3b5c8a496aae69c60bcbed929aa6bf87d98dc",
+    "../../xz/v1.3.0/response.js": "2c32f5a47151c6101552d4ba57b4a46d1596d2f54c430fdb7ef90bb869a36cb7",
+    "../../xz/v1.2.0/vendor/three.min.js": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+  },
+  "sources": [
+    {
+      "title": "KEYENCE glossy target inclination",
+      "url": "https://www.keyence.co.jp/ss/products/sensor/sensorbasics/fb_trouble/measures7.jsp"
+    },
+    {
+      "title": "Philips optical scanning device",
+      "url": "https://patents.google.com/patent/EP0512616A2/en"
+    }
+  ],
+  "sha256": {
+    "about.html": "0fa79a484021de335574de8ef5b0873d97088c56b81ded5db3d16e809818a0f8",
+    "app.js": "0100da54763067580976379e44004afcb9cdd64fe4002b66edf4886a8c31eae2",
+    "assembly_data.js": "052da2ab154179cd017bb0b4f7381b9a0326977d71632ac4ea2aa27d6ca3fc7d",
+    "assembly_manifest.json": "a90381a82275a91871293d5350a03b25b60d239a32bddf8b886488dfe52b1d6e",
+    "assembly_view.js": "e7c82aff4077a65df679144a1812bfcbc44f33ebda748d06c90bd86911d9978e",
+    "engine.js": "8a998aaf5b3959db84bd5dcf23d9f22102079e739873e83bb71a974653f1d3d3",
+    "index.html": "9e64ae82cffdb84785bb02ea2296f42130ba8246623d3cad827242bd974624f0",
+    "style.css": "d44ada665f23dccf89eb0450c844fa5d237b462d8e10bd53f74a0855818ebc50"
+  },
+  "collectionVersion": "1.6.0",
+  "assembly": {
+    "sourceStep": "Complete_X_lower_Z_upper_4equal_CB_L90_Bump2x3_20261103.step",
+    "sourceSHA256": "f48fe9926674b2b1b2eb58b77bb2b9641db1f554c6e3469dd97777bff1c96388",
+    "nativeSHA256": "9128245dc12de303a1f53b197882a541fcb112c03e574fc0de5b607e2f5e935e",
+    "originalObjects": 170,
+    "originalSolids": 2258,
+    "originalShapesAndPositionsUnchanged": true,
+    "conceptSupportCount": 2,
+    "newGeometryCollisionsWithOriginal": [],
+    "opticalWorkingDistanceCalibrated": false
+  }
+}
