@@ -2,15 +2,16 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="XZ扩大量程测量与OPU光路/四象限实时仿真。两套独立实验，浏览器直接打开，无需登录。">
+<meta name="description" content="金属丝连续进给、XZ FES/RF测量与OPU光路/四象限独立仿真。浏览器直接打开，无需登录。">
 <meta name="color-scheme" content="light dark"><title>OPU 仿真实验室 · XZ 测量与光路实验</title>
 <link rel="stylesheet" href="site.css"><link rel="icon" href="data:,">
 </head>
 <body>
 <header class="masthead"><div class="brand">XZ × OPU / LAB</div><a href="https://github.com/liziyaaa/xz-opu-simulator" rel="noopener noreferrer">GitHub 项目 ↗</a></header>
 <main>
-<section class="intro"><p class="eyebrow">两个实验 · 一个入口</p><h1>从测量流程，到光学信号。</h1><p>选择要观察的问题：X / Z 如何配合扩大量程，或样品、物镜与 PC 如何影响焦斑和四象限。两套演示独立运行，无需安装、登录或连接硬件。</p></section>
+<section class="intro"><p class="eyebrow">三个实验 · 一个入口</p><h1>从测量流程，到光学信号。</h1><p>观察连续进给金属丝的 FES / RF，研究 X / Z 配合扩大量程，或查看物镜与 PC 如何影响焦斑和四象限。三套实验独立运行，无需安装、登录或连接硬件。</p></section>
 <div class="experiments">
+<article class="experiment wire" aria-labelledby="wire-title"><div class="sketch"><svg viewBox="0 0 470 190" role="img" aria-label="金属丝由右侧卷筒放出，左侧牵引，固定OPU观察去皮标记"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="380" cy="110" r="43"/><circle cx="380" cy="110" r="31"/><circle cx="380" cy="110" r="18"/><circle cx="70" cy="49" r="19"/><circle cx="70" cy="88" r="19"/><path d="M70 68H380M211 25H250V40H211ZM231 40V68M70 125H300m0 0l-9-5m9 5l-9 5"/><path d="M140 68H162M268 68H290" stroke-width="5"/></g><text x="186" y="18">固定 OPU</text><text x="28" y="151">左侧牵引</text><text x="346" y="174">右侧放卷</text><text x="152" y="149">← 连续进给</text></svg></div><div class="experiment-body"><div class="tagline">独立新实验 · v1.0.0</div><h2 id="wire-title">金属丝 · 连续进给观察</h2><p>初始对准线材顶部中心；固定焦点，观察去皮段、高度跳变与横摆如何改变 FES 和 RF。</p><ul><li>33 / 30 µm同轴线材、1 mm去皮标记</li><li>放卷与牵引动画、等比例微观视图</li><li>独立ADC采样、速度漏检对照、CSV记录</li></ul><div class="actions"><a class="launch" data-demo="wire" href="wire/v1.0.0/">进入金属丝实验 →</a><a class="secondary" href="wire/v1.0.0/about.html">模型假设与参数</a></div></div></article>
 <article class="experiment" aria-labelledby="xz-title">
  <div class="sketch"><svg viewBox="0 0 470 190" role="img" aria-label="固定OPU，样品沿X扫描、Z回中并重建高度的示意图"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M80 152H397M102 152V130H350V152M123 130V98H330V130" class="neutral"/><path d="M150 98V83H190V68H232V42H280V98"/><path d="M215 16H257V27H215ZM236 27V65"/><path d="M124 171H330M124 171l8-5m-8 5l8 5M330 171l-8-5m8 5l-8 5M376 105V57m0 0l-5 8m5-8l5 8m-5 40l-5-8m5 8l5-8"/></g><g fill="currentColor"><circle cx="236" cy="42" r="4"/></g><text x="192" y="184">X 逐点扫描</text><text x="390" y="85">Z</text><text x="280" y="22">固定 OPU</text><text x="97" y="55">高度轮廓</text></svg></div>
  <div class="experiment-body"><div class="tagline">流程与信号 · v1.3.0</div><h2 id="xz-title">XZ FES / RF Bump 观察</h2><p>沿用 FES 找焦流程，新增实测参考 RF 工作点；先观察材料与高度变化，再研究新的找焦策略。</p><ul><li>2094 个 Bump 阵列、三维装配与微观视图</li><li>手动固定 Y、独立材料反射率、多行扫描记录</li><li>FES / RF 配对曲线、过程记录与 CSV 导出</li></ul><div class="actions"><a class="launch" data-demo="observation" href="xz/v1.3.0/">进入 FES / RF 观察 →</a><a class="secondary" data-demo="xz" href="xz/v1.2.0/">保留的 XZ 旧版</a></div></div>
@@ -20,8 +21,12 @@
  <div class="experiment-body"><div class="tagline">光学与信号 · v2.0.0</div><h2 id="optics-title">OPU 光路 / 四象限</h2><p>直接拖动或输入位置，观察主光束往返传播、焦斑和四象限能量的实时变化。</p><ul><li>移动样品、物镜、PC；添加或移除透明片</li><li>样品面与探测面光斑、归一化 FES</li><li>像散检测、四路积分与重新计算的 S 曲线</li></ul><div class="actions"><a class="launch" data-demo="optics" href="optics/v2.0.0/">进入光路实验 →</a><a class="secondary" href="optics/v2.0.0/model.html">参数与模型边界</a></div></div>
 </article>
 </div>
-<section class="boundary" aria-label="适用范围"><strong>这是仿真，不是硬件验收。</strong> XZ 演示中的读数分辨率不等于定位准确度；光路实验采用声明参数下的 650 nm 标量参考模型，不是 SF-HD65 原厂处方复刻，也不直接预测实机 mV 摆幅。两套实验尚未互相耦合，数据在访问者浏览器内处理，没有测量数据上传接口。</section>
-<section class="versions" aria-labelledby="versions-title"><h2 id="versions-title">固定版本入口</h2><table><thead><tr><th scope="col">演示</th><th scope="col">版本</th><th scope="col">说明</th></tr></thead><tbody><tr><td><a href="xz/v1.3.0/">XZ FES / RF Bump 观察</a></td><td>v1.3.0<span class="version-label">2026-11-04</span></td><td>实测参考双信号、材料线性模型、手动Y；未完成空间标定。</td></tr><tr><td><a href="xz/v1.2.0/">XZ 扩大量程</a></td><td>v1.2.0<span class="version-label">2026-10-08</span></td><td>保留原演示计算逻辑，增加项目导航。</td></tr><tr><td><a href="optics/v2.0.0/">OPU 光路 / 四象限</a></td><td>v2.0.0<span class="version-label">2026-10-13</span></td><td>本地最终版；本次仅做公开分享适配。</td></tr></tbody></table></section>
+<section class="boundary" aria-label="适用范围"><strong>这是仿真，不是硬件验收。</strong> 金属丝几何来自样品模型，表面光学响应仍为可调代理，未实测线材电压；XZ 读数分辨率不等于定位准确度；光路实验不是 SF-HD65 原厂处方复刻。实验独立运行，数据在访问者浏览器内处理，没有测量数据上传接口。</section>
+<section class="versions" aria-labelledby="versions-title"><h2 id="versions-title">固定版本入口</h2><table><thead><tr><th scope="col">演示</th><th scope="col">版本</th><th scope="col">说明</th></tr></thead><tbody>
+<tr><td><a href="wire/v1.0.0/">金属丝连续进给</a></td><td>v1.0.0<span class="version-label">2026-11-05</span></td><td>固定焦点、去皮标记、FES/RF代理与采样对照；未实测丝材响应。</td></tr>
+<tr><td><a href="xz/v1.3.0/">XZ FES / RF Bump 观察</a></td><td>v1.3.0<span class="version-label">2026-11-04</span></td><td>实测参考双信号、材料线性模型、手动Y；未完成空间标定。</td></tr>
+<tr><td><a href="xz/v1.2.0/">XZ 扩大量程</a></td><td>v1.2.0<span class="version-label">2026-10-08</span></td><td>保留原演示计算逻辑，增加项目导航。</td></tr>
+<tr><td><a href="optics/v2.0.0/">OPU 光路 / 四象限</a></td><td>v2.0.0<span class="version-label">2026-10-13</span></td><td>本地最终版；本次仅做公开分享适配。</td></tr></tbody></table></section>
 </main>
-<footer><span>合集发布 v1.4.0 · 2026-11-04</span><span>GitHub Pages · 公开访问 · 无需密码</span><a href="releases.json">版本清单</a></footer>
+<footer><span>合集发布 v1.5.0 · 2026-11-05</span><span>GitHub Pages · 公开访问 · 无需密码</span><a href="releases.json">版本清单</a></footer>
 </body></html>

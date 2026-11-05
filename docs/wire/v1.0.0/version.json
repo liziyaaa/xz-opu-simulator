@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "date": "2026-11-05",
+  "model": "fixed-focus axial wire feed; geometry plus measured-planar-response surrogate",
+  "geometry": {
+    "coatedDiameterUm": 33,
+    "bareDiameterUm": 30,
+    "bareLengthMm": 1,
+    "coatedIntervalMm": 10.2,
+    "pitchMm": 11.2,
+    "intervalPhotoEstimate": true,
+    "axisFixed": true,
+    "startMm": 5.1
+  },
+  "optics": {
+    "wavelengthNm": 650,
+    "na": 0.6,
+    "airyFirstZeroDiameterUm": 1.322,
+    "gaussianSigmaUm": 0.3305,
+    "axialGaussianIntegral": true,
+    "transverseQuadraturePoints": 5,
+    "pupilCoupling": "equal angular disk overlap approximation; not high-NA ray trace",
+    "coatingModel": "opaque single reflection; no multilayer interference",
+    "coatedReflectanceAssumed": 0.35,
+    "bareReflectanceAssumed": 0.75,
+    "darkLevelMeasured": false,
+    "defaultLinearUm": 4,
+    "spatialScaleCalibrated": false,
+    "wireSignalMeasured": false,
+    "automaticFocus": false,
+    "digitalClassification": false
+  },
+  "sampling": {
+    "modelDisplayHz": 500,
+    "fesHz": 50,
+    "rfHz": 9,
+    "maxDurationS": 60,
+    "actualADCFilter": false,
+    "syntheticNoise": "deterministic two-tone perturbation, not measured spectrum"
+  },
+  "geometrySource": {
+    "verification.json": "2fa38a8aeeb34252b8e77812e07ecd3adcaed8ce776a41f94235e45eacd39cfe",
+    "尺寸与建模说明.txt": "76fea19a9e7b47b24c2aaaa35da652979c8ee53e7ee0ec740c9ab81e866636b6",
+    "SMA_wire_on_blue_base.step": "652303a3d2cca338d2f8e9ce8ff7c409b17058850a0fbd15fec5c62d52c7a4fd"
+  },
+  "dependencies": {
+    "../../xz/v1.3.0/measured_response.js": "72e2753fdaa444228ab50a5b2db3b5c8a496aae69c60bcbed929aa6bf87d98dc",
+    "../../xz/v1.3.0/response.js": "2c32f5a47151c6101552d4ba57b4a46d1596d2f54c430fdb7ef90bb869a36cb7"
+  },
+  "sources": [
+    {
+      "title": "KEYENCE glossy target inclination",
+      "url": "https://www.keyence.co.jp/ss/products/sensor/sensorbasics/fb_trouble/measures7.jsp"
+    },
+    {
+      "title": "Philips optical scanning device",
+      "url": "https://patents.google.com/patent/EP0512616A2/en"
+    }
+  ],
+  "sha256": {
+    "about.html": "487256daa9e0ba85c11a11feecdd43149377c9d6351dd2cdb7a90b90d26b8d17",
+    "app.js": "515501be47857684be6df94dcd739881785cd5d2401f43635de8edc11e53937d",
+    "engine.js": "93d8472d8a0d5bf9d2b81a2c5cacda10bb8039db68ebe05d1d69f2703e45ef34",
+    "index.html": "301df9c2c3ad2718979a7ddcca7d5d519ae3144eb97a6db2b50d8dcd58e6ae0e",
+    "style.css": "f4d5cc72652ff9b530865c4e138ba5f537ed1724597b23f7ec9b81f89384a9d7"
+  }
+}
