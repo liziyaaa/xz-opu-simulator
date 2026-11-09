@@ -1,0 +1,27 @@
+{
+  "version": "1.5.1",
+  "collectionVersion": "1.8.1",
+  "date": "2026-11-09",
+  "parent": "../v1.5.0/index.html",
+  "defaultMeasurementMode": "adaptive",
+  "numericalModelChanged": false,
+  "modelSource": {
+    "step": "Complete_X_lower_Z_upper_4equal_CB_L90_Bump2x3_20261103.step",
+    "sha256": "f48fe9926674b2b1b2eb58b77bb2b9641db1f554c6e3469dd97777bff1c96388",
+    "parts": 163,
+    "engineeringZ": "CAD Y",
+    "triangles": 534224,
+    "meshMethod": "Direct Open Cascade STEP tessellation, face-separated shading, retained plate apertures",
+    "linearDeflectionMm": 0.025,
+    "angularDeflectionRad": 0.24,
+    "positionQuantizationMm": 0.005,
+    "maxProjectedExtentDeviationVsSourceTessellationMm": 0.003816,
+    "internalThreadsSimplified": 217
+  },
+  "sha256": {
+    "about.html": "244c93132d75c4d90e6156065362cacb8efb5efde294a69b1a8396f08222641d",
+    "app.js": "9a439b59fe09aac143e65cc3e7c0c66ac14ac6c8ae8892a049850a00d1092e92",
+    "assembly.js": "aea4dddc205510a5d97ec764ae4d93b8aefd93d3c4d22d812d04c800ff8070cb",
+    "index.html": "02b9a5290de62ccacd86c435cd41c76f533e206e3791b5476026b824a174f492"
+  }
+}
