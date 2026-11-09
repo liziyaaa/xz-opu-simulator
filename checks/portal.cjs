@@ -45,7 +45,7 @@ const out=path.join(__dirname,'../qa-results');fs.mkdirSync(out,{recursive:true}
   await page.evaluate(()=>scrollTo(0,0));await page.waitForTimeout(600);
   await page.locator('.project-nav a').filter({hasText:'XZ 扩大量程'}).click();await page.waitForURL('**/xz/v1.2.0/');
   await page.waitForFunction(()=>window.XZDemo?.sim);
-  assert.equal(await page.locator('#sample option').count(),6);
+  assert.equal(await page.locator('#sample option').count(),7);
   for(const view of ['left','front','right']){await page.click(`[data-view="${view}"]`);assert.equal(await page.evaluate(()=>XZDemo.view),view);}
   await page.selectOption('#encoder','0.01');assert.equal(await page.evaluate(()=>XZDemo.sim.cfg.q),.01);
   await page.click('#one');assert.ok(await page.evaluate(()=>XZDemo.sim.pending||XZDemo.sim.records.length));
@@ -60,7 +60,7 @@ const out=path.join(__dirname,'../qa-results');fs.mkdirSync(out,{recursive:true}
   await page.goto(new URL('about.html',base).href);await page.waitForURL('**/xz/v1.2.0/about.html');
   checks.push('two home entries','desktop/mobile/dark portal','numeric optics response','sample/objective opposite signs','PC pointer drag','PC removal and refocus','recalculated S curve','mobile optics no overflow','XZ samples/views/10nm/single-step','navigation and original about redirect','versioned links and manifests');
   assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);assert.deepEqual(unexpected,[]);
-  const result={passed:true,base:base.href,collectionVersion:'1.7.0',checks,errors,failed,unexpectedExternalRequests:unexpected};
+  const result={passed:true,base:base.href,collectionVersion:'1.8.0',checks,errors,failed,unexpectedExternalRequests:unexpected};
   fs.writeFileSync(path.join(out,base.hostname==='127.0.0.1'?'local-verification.json':'deployed-verification.json'),JSON.stringify(result,null,2));
   console.log(JSON.stringify(result,null,2));
  }finally{await browser.close();}

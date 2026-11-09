@@ -1,0 +1,24 @@
+{
+  "version": "1.5.0",
+  "collectionVersion": "1.8.0",
+  "date": "2026-11-09",
+  "parent": "../v1.4.0/index.html",
+  "defaultMeasurementMode": "adaptive",
+  "waferDetection": "registered Bump layout + flat focus plane + local slope and RF confirmation + continuous stability",
+  "modelSource": {
+    "step": "Complete_X_lower_Z_upper_4equal_CB_L90_Bump2x3_20261103.step",
+    "sha256": "f48fe9926674b2b1b2eb58b77bb2b9641db1f554c6e3469dd97777bff1c96388",
+    "parts": 163,
+    "engineeringZ": "CAD Y",
+    "triangles": 371938
+  },
+  "sha256": {
+    "about.html": "31a4311381cf2a7d59b05d5fda2916f379dd2b57bb53be475e209fe33e491f5b",
+    "app.js": "4b7736e631bdfc2e2c087e32b8d0e2ff1cb60c2eca3430e2d28e6151c1b1ce5a",
+    "assembly.js": "30d89f303cbff38abcc1f571524211712a14d72b2358620abc79500558952f7c",
+    "exports.js": "09436031eb172df06df3b81896dd05b3b97195d0ba317e280e5c46f789c6811c",
+    "index.html": "816a8db4dbc57af7d12bd5f34146eaae5c4be9fbe74543a516c34cfb88662645",
+    "paper-scan.js": "52f145cecf1bd549f8e5eb645a22aa433a6fce70995e4e79dd270d99b6b0c0cf",
+    "rows.js": "28a37799a7cdc0c3c43c90c8febaf9d21d8c68eac992d91057a4a060e57473fb"
+  }
+}
