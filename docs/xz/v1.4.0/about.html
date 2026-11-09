@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>XZ v1.4.0 · 测高方法与参数</title><link rel="stylesheet" href="../v1.3.0/style.css"></head>
+<body><main>
+<section class="manual-row card">
+  <p><a href="index.html">← 返回 XZ 仿真</a>　<a href="../v1.3.0/index.html">打开 v1.3.0 观察版</a></p>
+  <h1>XZ v1.4.0 · S 曲线过零测高</h1>
+  <h2>测量流程</h2>
+  <ol>
+    <li>手动选 Y，设置 X 起点、终点和取点间距。在起始表面的第一个点完整扫 Z，记录过零位置作为本行高度零点。</li>
+    <li>X 到点并停稳。逐点模式每点沿 Z 扫过主 S 曲线；扣除共同的 FES 偏置，拟合峰谷之间的中心段。用初始过零 Z 减去当前过零 Z，得到相对高度。</li>
+    <li>按需模式检查 X 移动和停稳期间的 FES/RF。两路信号均接近最近有效扫程的焦点读数时，保持 Z，用该点的局部斜率换算微小变化。默认保持带 ±0.25 µm、RF 变化阈值 3%、每隔 20 个 X 点复扫。</li>
+    <li>信号变化或缺失、刚跨过无效点、X 原始采样太稀时，重新扫 Z。近程未捕获完整 S 曲线时尝试扩大扫程。边缘点保留为空，其他拟合失败点暂停并保留原始信号。</li>
+  </ol>
+  <h2>速度和采样</h2>
+  <p>Z 电机速度决定运动过程和标称采样间距 v<sub>Z</sub>/f<sub>s</sub>。演示播放速度只改变画面播放快慢。中心拟合至少需要五个独立光栅位置，过零两侧各至少两个。结果 CSV 记录完整扫程、局部估算、触发原因、过零位置、斜率与拟合质量。</p>
+  <p>用“载入平坦硅基底示例”对比逐点与按需模式。扫描开始后参数锁定。点“结束并保存当前行”可换模式并保留已有轮廓；较长原始记录可先单独导出。</p>
+  <h2>依据和模型范围</h2>
+  <p>逐点扫描、扣偏置及拟合中心过零沿用 Liao 等人的论文方法。窄扫程扩展、RF 触发和定期复扫是本仿真中的额外策略。FES/RF 沿用 v1.3.0 的镜片／硅片实验参考，Z 尺度、材料插值与边缘判定为模拟。表面若在 FES 和 RF 上表现相近，按需模式可能漏检；定期复扫只限制持续沿用旧标定的距离。材料本身造成的过零偏移仍会进入高度结果。</p>
+  <p><a href="https://doi.org/10.1088/1361-6501/aadc49">Liao 等，《A novel method for quantitative height measurement based on an astigmatic optical profilometer》</a></p>
+</section></main></body></html>

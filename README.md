@@ -2,12 +2,13 @@
 
 在线首页：<https://liziyaaa.github.io/xz-opu-simulator/>
 
-合集发布 **v1.6.0 · 2026-11-05**。金属丝升级为用户指定完整XZ装配，加左牵引和右放卷支架；所有旧演示保留不变。公开访问，无需密码或 ChatGPT 账号。
+合集发布 **v1.7.0 · 2026-11-09**。XZ v1.4.0 沿用原三维装配与 Bump 样品，新增逐点和按需 S 曲线过零测高。公开访问，无需密码或 ChatGPT 账号。
 
 | 演示 | 固定入口 | 模型版本 | 内容 |
 | --- | --- | --- | --- |
 | 金属丝完整装配 | [打开](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.1.0/) | v1.1.0 | 用户完整XZ平台，新增两支架、牵引轮与放卷筒；五种视角、旋转缩放、同一FES/RF模型。 |
 | 金属丝初版示意 | [保留版本](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.0.0/) | v1.0.0 | 原二维进给及微观演示，独立保留。 |
+| XZ S 曲线过零测高 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.4.0/) | v1.4.0 | 可调 Z 速度、局部过零拟合、逐点与按需策略、原始过程导出。 |
 | XZ FES / RF Bump 观察版 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.3.0/) | v1.3.0 | 镜片/硅片实测配对信号、35%/95%材料锚点、2094个凸点、手动固定Y及多行记录。RF仅显示，不新增找焦策略。 |
 | XZ 扩大量程测量 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.2.0/) | v1.2.0 | X 逐点扫描、FES / Z 找焦、统一基准合成高度；六种样品与三维 / 微观视图。 |
 | OPU 光路 / 四象限 | [打开](https://liziyaaa.github.io/xz-opu-simulator/optics/v2.0.0/) | v2.0.0 | 650 nm 主通道往返传播、拖动 PC / 物镜 / 样品、焦斑、四象限积分与 S 曲线。 |

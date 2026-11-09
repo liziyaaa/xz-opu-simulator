@@ -1,8 +1,9 @@
 {
-  "collectionVersion": "1.6.0",
-  "publishedDate": "2026-11-05",
+  "collectionVersion": "1.7.0",
+  "publishedDate": "2026-11-09",
   "entry": "index.html",
   "demos": [
+    {"id":"paper-scan","title":"XZ S 曲线过零测高","modelVersion":"1.4.0","modelDate":"2026-11-09","path":"xz/v1.4.0/","about":"xz/v1.4.0/about.html","audit":"xz/v1.4.0/version.json","numericalModelChanged":true},
     {"id":"wire","title":"金属丝完整XZ装配观察","modelVersion":"1.1.0","modelDate":"2026-11-05","path":"wire/v1.1.0/","about":"wire/v1.1.0/about.html","audit":"wire/v1.1.0/version.json","numericalModelChanged":false},
     {"id":"wire-original","title":"金属丝初版示意","modelVersion":"1.0.0","modelDate":"2026-11-05","path":"wire/v1.0.0/","about":"wire/v1.0.0/about.html","audit":"wire/v1.0.0/version.json","numericalModelChanged":false},
     {"id":"observation","title":"XZ FES / RF Bump 观察版","modelVersion":"1.3.0","modelDate":"2026-11-04","path":"xz/v1.3.0/","about":"xz/v1.3.0/about.html","audit":"xz/v1.3.0/version.json","numericalModelChanged":true},

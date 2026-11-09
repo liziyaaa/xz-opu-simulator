@@ -1,0 +1,22 @@
+{
+  "version": "1.4.0",
+  "collectionVersion": "1.7.0",
+  "date": "2026-11-09",
+  "parent": "../v1.3.0/index.html",
+  "paper": "https://doi.org/10.1088/1361-6501/aadc49",
+  "measurementModes": [
+    "every",
+    "adaptive"
+  ],
+  "rfUsedForFit": false,
+  "rfUsedForAdaptiveTrigger": true,
+  "measuredSpatialCalibration": false,
+  "tiltModel": false,
+  "sha256": {
+    "about.html": "cb2ebedb742451a88452d23e31e251488eedf6c1e4cf45bf1c48d63fc8391e97",
+    "app.js": "20df5c145ff437759aabd54af905d321293d2b1cab260f0031b6b0e04a40dbcd",
+    "exports.js": "d2ea352374917369a555afc86cbe9ae212451a65648408609aaa9bc78c8a29ee",
+    "index.html": "968682dec1373bb71c932a4b4446d4990e6bdbecf533fae7f17b888a8abb54b6",
+    "paper-scan.js": "9df4b9793a2aa9cdbb974051c5d6cbc83f61ebe491275cb95eb0b6d01f0bce8a"
+  }
+}
