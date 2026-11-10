@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XZ × OPU · S 曲线过零测高 v1.6.0</title><link rel="icon" href="data:,"><link rel="stylesheet" href="../v1.3.0/style.css"></head><body>
+<style>
+.project-nav{box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px 18px;margin:0 0 16px;border-bottom:1px solid #9baab644;font:14px/1.6 "Segoe UI","Microsoft YaHei",sans-serif;color:inherit}
+.project-nav a{color:inherit;text-decoration:none;padding:4px 0}.project-nav a:hover{text-decoration:underline}.project-nav a:focus-visible{outline:2px solid currentColor;outline-offset:4px}.project-nav [aria-current]{font-weight:600}.project-nav span{margin-left:auto;font-size:12px;opacity:.7}@media(max-width:480px){.project-nav{gap:8px 16px;padding:10px 8px}.project-nav span{margin-left:0;width:100%}}
+.cad-key{display:flex;flex-wrap:wrap;gap:5px 15px;padding:0 18px 12px;font-size:12px;color:#4a6577}.cad-key span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.cad-key i{display:inline-block;width:9px;height:9px;border-radius:2px}
+
+.camera-panel{margin:0 0 18px;scroll-margin-top:18px}.camera-chip{padding:4px 9px;border-radius:20px;background:#e7f4f7;color:#276379;font-size:12px;white-space:nowrap}.camera-layout{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);gap:18px;padding:0 20px}.camera-image{min-width:0;border-radius:10px;overflow:hidden;border:1px solid #dce6ec;background:#f1f6f9}#industrial-frame{display:block;width:100%;aspect-ratio:1.3;cursor:crosshair;touch-action:pan-y}.camera-image-foot{padding:9px 11px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;font-size:12px;color:#36576a}.camera-image-foot label{display:flex;align-items:center;gap:8px}.camera-image-foot select{height:30px;padding:0 8px}.camera-steps{display:grid;gap:8px;min-width:0}.camera-steps section{border:1px solid #e0eaf0;border-radius:9px;padding:9px 11px;background:#fafcfd}.camera-steps h3{margin:0 0 7px;font-size:13px;color:#19364a}.camera-controls{display:flex;flex-wrap:wrap;align-items:end;gap:7px;margin:4px 0}.camera-controls input{width:107px}.camera-controls button{white-space:nowrap}.camera-steps p,.camera-message,.camera-note{font-size:12px;line-height:1.6;overflow-wrap:anywhere}.camera-steps p{margin:4px 0 0;color:#416376}.camera-message{margin:12px 20px 0;padding:8px 11px;border-radius:7px;background:#eaf4f8;color:#184e62}.camera-note{margin:7px 20px 14px;color:#657e90}#micro-paused{position:absolute;top:45%;left:10px;right:10px;text-align:center;padding:7px;background:#eaf4f8e8;color:#28586b;z-index:2}
+@media(max-width:900px){.camera-layout{grid-template-columns:minmax(0,1fr)}}@media(max-width:480px){.camera-layout{padding:0 12px}.camera-message,.camera-note{margin-left:12px;margin-right:12px}}
+</style><nav class="project-nav" aria-label="仿真项目导航"><a href="../../index.html">← 仿真首页</a><a href="index.html" aria-current="page">XZ 扩大量程</a><a href="../../optics/v2.0.0/index.html">OPU 光路 / 四象限</a><span>S 曲线过零测高 v1.6.0 · 纯仿真</span></nav>
+<header><div class="brand"><span class="logo">↗</span><div><h1>XZ × OPU <span>扩大量程演示</span></h1><p>X 逐点定位 · 固定 X 扫 Z · S 曲线过零测高</p></div></div><div class="demo-badge"><i></i> 纯仿真 · 不连接硬件</div></header>
+<div class="release-bar"><strong id="version-label">v1.6.0 · 2026-11-10 · 工业相机对准 / OPU 转运</strong><a href="#camera-panel">工业相机对准 ↓</a><a id="versions-link" href="about.html">版本与操作说明 ↗</a></div>
+<main>
+<section class="manual-row card"><h2>样品放置与材料响应</h2><div class="observation-controls"><label>硅基底模拟反射率 %<input id="base-reflectance" type="number" min="0" max="100" value="35"></label><label>凸点模拟反射率 %（非锡实测）<input id="bump-reflectance" type="number" min="0" max="100" value="95"></label><label>固定标定参考 %<input id="reference-reflectance" type="number" min="0" max="100" value="35"></label><label>实测响应<select id="response-pass"><option value="representative">8次代表响应</option><option value="1">第 1 次配对响应</option><option value="2">第 2 次配对响应</option><option value="3">第 3 次配对响应</option><option value="4">第 4 次配对响应</option><option value="5">第 5 次配对响应</option><option value="6">第 6 次配对响应</option><option value="7">第 7 次配对响应</option><option value="8">第 8 次配对响应</option></select></label></div><div class="row-layout"><div class="top-map"><canvas id="top-view" role="img" aria-label="样品俯视图，点击选择手动固定的Y扫描行"></canvas></div><div class="row-explanation"><p>先手动放置 Y，再固定 Y 沿 X 扫描。扫描或暂停中 Y 均锁定；结束当前行后可换 Y，历史行保留。</p><div class="observation-controls"><label>Y 固定位置 µm<input id="row" type="number" value="3542.168675" min="0" step="0.000001"></label><label class="y-slider">Y 手动放置<input id="row-slider" type="range" min="0" max="7602.409639" step="0.000001" value="3542.168675"></label><button id="end-row">结束并保存当前行</button></div><div class="observation-controls"><label>X 起点 µm<input id="scan-start" type="number" min="0" value="3600" step="1"></label><label>X 终点 µm<input id="scan-end" type="number" min="0" value="4500" step="1"></label><button id="export-history">导出历史行 CSV</button><button id="export-history-raw">导出历史原始过程</button><button id="flat-line" class="quiet">载入平坦硅基底示例</button></div></div></div><p class="scope-note">镜片 95% / 硅片 35% 两个指定锚点线性插值；凸点 95% 仅为初始模拟值。暂不考虑倾斜。FES/RF 曲线来自实测参考，位置与时间过程是仿真；4 µm 是可调演示尺度，未完成实测 Z 标定。RF 继续显示，配合已知裸硅区和局部 FES 斜率确认是否能跳扫。过零拟合只用 FES 和光栅读数。</p><div id="row-history" class="row-history"></div></section>
+<section class="toolbar card">
+ <label class="sample-select">被测样品<select id="sample"></select></label>
+ <label>光栅分辨率<select id="encoder"><option value="0.05">50 nm</option><option value="0.01">10 nm</option></select></label>
+ <label>X 取点步长（µm）<input id="step" type="number" min="0.5" max="1000" step="0.5" value="2"></label>
+ <label>测高策略<select id="scan-mode"><option value="adaptive" selected>裸硅平区自动跳扫</option><option value="every">逐点扫 S 曲线</option></select></label>
+ <label>Z 电机速度（µm/s）<input id="zSpeed" type="number" value="100" min="1" max="5000" step="10"></label>
+ <label>采样率（Hz）<input id="rawHz" type="number" value="500" min="100" max="10000" step="100"></label>
+ <label>演示速度<select id="speed"><option value="1">逐步讲解</option><option value="8">8×</option><option value="40" selected>40×</option><option value="150">快速完成</option></select></label>
+ <div class="play-controls"><button id="play" class="primary">▶ 开始扫描</button><button id="one">单步</button><button id="reset" class="quiet">↺ 重置</button></div>
+</section>
+<div class="workspace">
+ <section class="model card"><div class="panel-head"><div><h2>装配视图</h2><span class="sub">STEP 曲面 · 下 X 上 Z · 毫米比例</span></div><div class="segmented" id="views"><button data-view="left">左侧视角</button><button data-view="front" class="active">正视图</button><button data-view="right">右侧视角</button><button data-view="detail">测量区</button><button data-view="camera">相机工位</button></div></div>
+  <div id="assembly-key" class="cad-key" aria-label="装配颜色图例"></div>
+  <div id="scene"><div id="webgl-error" hidden>3D 显示不可用，请在支持 WebGL 的浏览器中打开。</div><div class="axis-chip">X → &nbsp; Z ↑</div></div>
+  <div class="model-foot"><strong id="sample-title"></strong><p id="sample-note"></p><p class="muted">下层 X 带动上层 Z；Z 带动动台、倒 L 和样品。青色光柱为放大的测量位置标记。</p></div>
+ </section>
+ <section class="measure card"><div class="panel-head"><div><h2>测量现场</h2><span class="sub">沿扫描线剖面 · 横纵比例分别标注</span></div><span id="status" class="status">就绪</span></div>
+  <div class="readings"><div><span>X 扫描位置</span><strong id="x-value">0.000 <small>mm</small></strong></div><div><span>光栅 Z 位移 ↑为正</span><strong id="z-value">0.000 <small>µm</small></strong></div><div><span>FES 电压</span><strong id="fes-value">−60.000 <small>mV</small></strong></div><div><span>重建表面高度</span><strong id="height-value">0.000 <small>µm</small></strong></div></div>
+  <div class="current-optics" aria-live="polite"><span>RF <strong id="rf-value">—</strong></span><span id="material-value"></span><strong id="wafer-status"></strong></div><div class="canvas-wrap"><canvas id="section-chart"></canvas></div>
+  <div class="focus-meter"><div><span>线性区剩余离焦</span><strong id="residual-value">0.000 µm</strong></div><div class="meter"><span id="meter-dot"></span><i></i></div><div class="meter-labels"><span id="linear-left">−2 µm</span><span>标定中心</span><span id="linear-right">+2 µm</span></div></div>
+  <div class="equation"><span>高度变化</span><strong>Δh = Z<sub>过零, 起点</sub> − Z<sub>过零, 当前</sub></strong><p>样品升高时，Z 需下移才能对焦。确认平坦裸硅后保留 Z，用该区扫得的局部斜率估算小变化。</p></div>
+ </section>
+</div>
+<section class="card camera-panel" id="camera-panel">
+ <div class="panel-head"><div><h2>工业相机 · Bump 对准与转运</h2><span class="sub">固定俯视 · CAD X=136 mm · OPU 左侧 14 mm</span></div><span class="camera-chip">虚拟画面</span></div>
+ <div class="camera-layout">
+  <div class="camera-image"><canvas id="industrial-frame" role="img" aria-label="仿真相机拍摄的 Bump 样片，点击凸点选中"></canvas>
+   <div class="camera-image-foot"><span id="camera-stage">OPU 工位</span><label>画面放大<select id="camera-zoom"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label></div>
+  </div>
+  <div class="camera-steps">
+   <section><h3>1 · 移到拍照工位</h3>
+    <div class="camera-controls"><label>视场中心 · 样片 X（µm）<input id="camera-center-x" type="number" min="0" step="10" value="4000"></label><button id="camera-photo" class="primary">退让并拍照</button><button id="camera-back" class="quiet">返回 OPU</button></div>
+   </section>
+   <section><h3>2 · 标定与选点</h3>
+    <div class="camera-controls"><button id="camera-calibrate" class="quiet">模拟点阵＋同靶标定</button><button id="camera-pick-direction" class="quiet">选第二颗定方向</button></div>
+    <p id="camera-calibration"></p><p>已选 <strong id="camera-selection"></strong></p>
+   </section>
+   <section><h3>3 · 对准并交给 OPU</h3>
+    <div class="camera-controls"><label>手动 Y（µm）<input id="camera-y" type="number" step="1"></label><label>样片 θ（°）<input id="camera-yaw" type="number" min="-3" max="3" step=".05" value="0"></label><button id="camera-align-y" class="quiet">按偏差调 Y</button><button id="camera-align-theta" class="quiet">按两点调 θ</button></div>
+    <div class="camera-controls"><label>目标前留量（µm）<input id="camera-lead" type="number" min="0" max="1000" step="10" value="120"></label><button id="camera-transfer" class="primary">转运并填入起点</button></div>
+    <p id="camera-plan"></p>
+   </section>
+  </div>
+ </div>
+ <p id="camera-message" class="camera-message" role="status"></p>
+ <p class="camera-note">参考 5 MP 黑白相机和 1× 远心镜头，中央视场 5.2 × 4.0 mm。转运保持 Z 退让 −10 mm，X 候选范围 ±15 mm；扫描长度沿用当前设置。相机包络、支架、画面与标定数据用于演示，实机安装需另核对。</p>
+</section>
+<section class="micro card"><div class="panel-head"><div><h2>微观测量 · 焦点附近</h2><span class="sub" id="micro-angle">正视图 · 同方向</span></div><div class="micro-controls"><label>SF-HD65 光学模式<select id="optical-mode" title="改变光学模式会重置当前仿真记录；请按实际使用的激光选择"><option value="dvd">DVD · 650 nm / NA 0.60</option></select></label><label>纵向视野<select id="micro-span"><option value="20">20 µm</option><option value="100" selected>100 µm</option><option value="250">250 µm</option><option value="1000">1 mm</option><option value="4000">4 mm</option></select></label><button id="micro-detail" class="quiet" onclick="XZDemo.setView('detail')">跟随测量区角度</button></div></div>
+ <div class="micro-layout"><div id="micro-scene"><div class="micro-overlay"><span id="micro-fov"></span><span>固定焦平面 · 样品按真实比例移动</span></div><div class="micro-scale" id="micro-scale"></div><div id="micro-paused" hidden>样片位于退让高度，等待返回 OPU。</div><div class="micro-key">青色小圆：焦斑范围　虚线：光轴指示线（非光束外径）</div></div><div class="micro-info"><h3>尺寸与光学依据</h3><strong id="spot-info"></strong><p>依据 SF-HD65 S03，印刷页码 3–4。焦斑为理想圆孔径 Airy 中央斑第一暗环直径：d = 1.22 λ / NA；按 µm 尺寸显示，不人为加大。</p><p class="micro-caution">这是按手册参数计算的理想焦斑，不是本装置实测光斑。未模拟入瞳填充、像差、倾斜面或离焦扩斑；材料电压响应采用两锚点线性假设；光学模式不会替代实测 FES 标定。</p><p id="sample-dimensions"></p><p>样品为原五个参考模型的名义尺寸，部分基片为局部截取；并非已购买实物的测量认证。微观与装配窗口角度同步，横纵空间比例一致；换视野不清空数据。</p><p class="muted">默认 DVD 仅为演示初始选择，实际激光模式需按接线确认。仅 DVD 几何模式与此次实测参考配合；切换模式会重置未开始的行，并更新模拟边缘判定所用的焦斑范围。微观焦平面设在仿真样品的标称表面。</p></div></div>
+</section>
+<section class="s-curve card"><div class="panel-head"><div><h2>FES / RF 配对曲线与当前工作点</h2><span class="sub">参考响应与当前工作点；Z 扫描和拟合结果见下方</span></div><span class="sub">FES 与 RF 同位置观察</span></div><div class="curve-readings"><span id="s-fes"></span><span id="s-position"></span><strong id="s-state"></strong></div><canvas id="s-chart" role="img" aria-label="FES与当前共同扫描位置"></canvas><canvas id="rf-chart" role="img" aria-label="与FES对应的RF参考曲线和工作点"></canvas><p id="s-note" class="s-note"></p><div class="recovery-controls"><button id="recover" class="quiet" disabled>在当前 X 重试扫 Z</button><span id="baseline-text">第一次有效的 S 曲线过零位置作为整行高度基准。</span></div></section>
+<section class="s-curve card"><div class="panel-head"><div><h2>本点 Z 扫描与过零拟合</h2><span class="sub">横轴为同步光栅位置，纵轴为扣除偏置的 FES</span></div><span class="sub" id="fit-label">待扫 Z</span></div><canvas id="fit-chart" role="img" aria-label="Z 轴扫出的 FES、中心线性拟合和过零点"></canvas><p id="fit-note" class="s-note"></p></section>
+<section class="raw-signal card"><div class="panel-head"><div><h2>FES / RF 过程记录</h2><span class="sub">保留 X 移动、Z 扫曲线和稳定读数</span></div><button id="export-raw" class="quiet">导出原始记录</button></div><div class="curve-readings"><span id="raw-info"></span><span id="focus-info"></span><strong id="direction-info"></strong></div><canvas id="raw-chart" role="img" aria-label="FES演示时间记录"></canvas><canvas id="raw-rf-chart" role="img" aria-label="RF演示时间记录"></canvas><div class="signal-key"><span class="raw-x">X 移动 · Z 保持</span><span class="raw-search">固定 X 扫 Z / 到位</span><span class="raw-average">停稳平均</span><span>光斑跨边缘时保留空点</span></div></section>
+<section class="process card"><div class="steps" id="workflow"><div data-phase="x"><b>01</b><span>X 移动 · 记录原始 FES</span></div><div data-phase="probe"><b>02</b><span>X 停稳 · 检查 FES / RF</span></div><div data-phase="z"><b>03</b><span>扫 Z 取 S 曲线 / 平稳时保持 Z</span></div><div data-phase="settle"><b>04</b><span>中心段拟合过零 / 局部残差</span></div><div data-phase="record"><b>05</b><span>按首个过零基准换算高度</span></div></div><p id="process-text">首点完整扫 Z，建立过零基准后再沿 X 测高。</p><div class="progress"><span id="progress-fill"></span></div></section>
+<section class="profile card"><div class="panel-head"><div><h2>扫描结果</h2><span class="sub">一条 X 扫描线得到二维高度轮廓；增加 Y 扫描才能得到面形图</span></div><div class="legend"><span class="truth">模型真实高度</span><span class="measured">重建高度（圆点为扫 Z）</span><span class="invalid">无效采样</span></div><button id="export" class="quiet">导出 CSV</button></div><canvas id="profile-chart"></canvas><div class="stats"><span id="point-count">0 / 1001 点</span><span id="correction-count">S 曲线扫描 0 次</span><span id="error-stat">有效点最大误差 —</span><span class="warning">读数分辨率 ≠ 定位准确度</span></div></section>
+<details class="settings card"><summary>仿真参数与边界 <span>假设参数，可修改后重新扫描</span></summary><div class="settings-grid">
+ <label>参考响应斜率 k <span>mV/µm</span><input id="slope" type="number" value="-39" step="0.1" readonly></label>
+ <label>演示线性区全宽 <span>µm，非实测Z标定</span><input id="linear" type="number" value="4" min="1" max="6" step="0.5"></label>
+ <label>按需保持带 ± <span>µm，基于最近实测拟合斜率</span><input id="flatBand" type="number" value="0.25" min="0.02" max="0.5" step="0.01"></label>
+ <label>按需 RF 变化阈值 <span>%</span><input id="rfTolerance" type="number" value="3" min="0.1" max="20" step="0.1"></label>
+
+ <label>单点最大 Z 扫描半程 ± <span>µm</span><input id="search" type="number" value="200" min="5" max="1000" step="10"></label>
+ <label>Z 相对软限位 ± <span>µm</span><input id="zLimit" type="number" value="1500" min="50" max="3000" step="50"></label>
+ <label>FES 噪声幅度 <span>mV</span><input id="noise" type="number" value="0" min="0" max="2" step="0.05"></label>
+
+ <label>X 期望速度 <span>µm/s</span><input id="xSpeed" type="number" value="100" min="0.1" max="5000" step="10"></label>
+ <label>最终稳定平均窗口 <span>ms，可调整，不固定为 20 ms</span><input id="averageMs" type="number" value="20" min="1" max="500" step="1"></label>
+ <label>X 到位等待 <span>ms，理想化稳定等待</span><input id="xSettleMs" type="number" value="50" min="0" max="1000" step="10"></label>
+ <label>Z 到位等待 <span>ms，理想化稳定等待</span><input id="zSettleMs" type="number" value="100" min="0" max="1000" step="10"></label>
+ <label class="check"><input id="continueEdges" type="checkbox" checked>边缘点留空，自动继续下一点</label>
+</div><div class="limitations"><p><b>逐点策略</b>　X 到位后固定，电机沿 Z 采集 FES 和光栅读数。扣除共同偏置，在主峰与主谷之间拟合中心段，取过零光栅位置。近程未包含完整 S 曲线时，在所设范围与软限位内扩大扫程。</p><p><b>裸硅跳扫</b>　首点和进入新裸硅区时扫 Z 确认。测点及 X 路径须在样品图已知的裸硅区，且过零位置接近基底平面、斜率与 RF 匹配裸硅参考、移动和停稳信号稳定。确认后保持 Z，不定期重复扫。凸点、未知材质、跨区或信号异常时扫 Z。</p><p><b>模型边界</b>　不同材料可能改变过零位置，光斑跨边缘由几何近似判定。FES 和 RF 同时相近的异常仍可能漏检。电机匀速、读数量化和响应尺度均为仿真假设；现场需用同高异材件和已知台阶验证。</p></div></details>
+<footer>XZ / OPU DEMONSTRATOR <span>公开分享版 · 纯仿真 · 参数非硬件验收值</span><a href="about.html" target="_blank">说明与操作流程 ↗</a></footer>
+</main><script src="../v1.2.0/vendor/three.min.js"></script><script src="../v1.5.1/assembly.js"></script><script src="../v1.2.0/physics.js"></script><script src="../v1.3.0/measured_response.js"></script><script src="../v1.3.0/bump_data.js"></script><script src="../v1.3.0/response.js"></script><script src="../v1.3.0/samples.js"></script><script src="../v1.5.0/rows.js"></script><script src="../v1.3.0/physics.js"></script><script src="../v1.3.0/signals_view.js"></script><script src="../v1.5.0/exports.js"></script><script src="../v1.3.0/micro_view.js"></script><script src="camera-alignment.js"></script><script src="paper-scan.js"></script><script src="camera-view.js"></script><script src="app.js"></script></body></html>

@@ -60,7 +60,7 @@ const out=path.join(__dirname,'../qa-results');fs.mkdirSync(out,{recursive:true}
   await page.goto(new URL('about.html',base).href);await page.waitForURL('**/xz/v1.2.0/about.html');
   checks.push('two home entries','desktop/mobile/dark portal','numeric optics response','sample/objective opposite signs','PC pointer drag','PC removal and refocus','recalculated S curve','mobile optics no overflow','XZ samples/views/10nm/single-step','navigation and original about redirect','versioned links and manifests');
   assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);assert.deepEqual(unexpected,[]);
-  const result={passed:true,base:base.href,collectionVersion:'1.8.1',checks,errors,failed,unexpectedExternalRequests:unexpected};
+  const result={passed:true,base:base.href,collectionVersion:'1.9.0',checks,errors,failed,unexpectedExternalRequests:unexpected};
   fs.writeFileSync(path.join(out,base.hostname==='127.0.0.1'?'local-verification.json':'deployed-verification.json'),JSON.stringify(result,null,2));
   console.log(JSON.stringify(result,null,2));
  }finally{await browser.close();}

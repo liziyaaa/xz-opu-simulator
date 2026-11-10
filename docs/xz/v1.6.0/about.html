@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>XZ v1.6.0 · 工业相机与 OPU 对准</title><link rel="stylesheet" href="../v1.3.0/style.css"></head>
+<body><main>
+<section class="manual-row card">
+  <p><a href="index.html">← 返回 XZ 仿真</a>　<a href="../v1.5.1/index.html">打开 v1.5.1</a></p>
+  <h1>XZ v1.6.0 · 工业相机与 OPU 对准</h1>
+  <h2>旁置相机对准</h2>
+  <ol>
+    <li>选 Bump 2×3，打开工业相机对准，点「退让并拍照」。样片先降到 Z −10 mm，再沿 X 到俯视相机。建议用 4000 µm 视场中心开始试验。</li>
+    <li>点「模拟点阵＋同靶标定」拟合像素到样片平面的映射，并用共同虚拟靶的两次 X 读数建立转运偏移。点选目标凸点；需要校正行方向时再选同一行的第二颗。</li>
+    <li>输入 Y／θ 或采用页面的调整按钮。转运需要目标 Y 偏差在 ±5 µm 内；选了两点时还需两点的 Y 差在 ±5 µm 内。起点需要落在裸硅上，并满足候选 X 行程和当前扫描长度。</li>
+    <li>点「转运并填入起点」后，样片保持 Z 退让横移，到 OPU 后抬升。再点「开始扫描」，由原 FES 过零流程计算高度。CSV 首行会记录相机转运和样片 θ。</li>
+  </ol>
+  <p>相机轴线为 CAD X=136 mm、深度 91.5 mm，距 OPU 14 mm。Basler a2A2448-75umBAS 的默认图像为 2448 × 2048、像元 2.74 µm。示例镜头 TC23009 为 1×，工作距离 62.2 mm。仿真画面按 5.2 × 4.0 mm 中央视场绘制。<br><a href="https://docs.baslerweb.com/a2a2448-75umbas">Basler 规格</a> · <a href="https://www.opto-e.com/en/products/tc-series/TC23009">Opto Engineering 规格</a></p>
+  <p>画面由 Bump 几何合成。标定残差来自虚拟点阵；机身、镜筒和背板支架为布局包络，真实安装、光线、照明及行程需在样机上复核。</p>
+  <h2>测量流程</h2>
+  <ol>
+    <li>手动选 Y，设置 X 起点、终点和取点间距。在起始表面的第一个点完整扫 Z，记录过零位置作为本行高度零点。</li>
+    <li>X 到点并停稳。逐点模式每点沿 Z 扫过主 S 曲线；扣除共同的 FES 偏置，拟合峰谷之间的中心段。用初始过零 Z 减去当前过零 Z，得到相对高度。</li>
+    <li>默认自动跳扫。已知裸硅区来自 Bump 布局图，凸点外保留至少 2 µm。首点及跨入裸硅区后扫一次，检查过零位置是否接近已建立的裸硅平面，同时检查 RF 和 S 曲线斜率是否匹配裸硅参考。</li>
+    <li>确认后，X 整段路径均在裸硅区，且 FES/RF 连续稳定时保持 Z。默认保持带 ±0.25 µm、RF 阈值 3%、斜率允许偏差 20%。凸点、未知材质、信号变化或缺失、X 采样过稀时恢复扫 Z。跨陡边仍留空。近程未捕获完整 S 曲线时尝试扩大扫程。</li>
+  </ol>
+  <h2>速度和采样</h2>
+  <p>Z 电机速度决定运动过程和标称采样间距 v<sub>Z</sub>/f<sub>s</sub>。演示播放速度只改变画面播放快慢。中心拟合至少需要五个独立光栅位置，过零两侧各至少两个。结果 CSV 记录完整扫程、局部估算、触发原因、过零位置、斜率与拟合质量。</p>
+  <p>用“载入平坦硅基底示例”对比逐点与自动跳扫。扫描开始后参数锁定。结束并保存当前行后可换模式，历史保留最多 20 行及累计 100 万条原始点。CSV 的 wafer_state 记录裸硅判定。</p>
+  <h2>依据和模型范围</h2>
+  <p>逐点扫描、扣偏置及中心过零拟合沿用 Liao 等人的论文方法。仿真用样品布局与镜片／硅片实验参考判定裸硅。实机须先把样品图或视觉识别区域配准到 X/Y，再用已知裸硅采集参考曲线。只凭 FES、RF 或斜率均无法唯一确认材质。</p>
+  <p>装配来自 Complete_X_lower_Z_upper_4equal_CB_L90_Bump2x3_20261103.step。网页直接对原 STEP 曲面三角化，保留板件外边界、圆角、孔口、电机、转接板和支架的形状。仅将两块光学板的螺纹孔内部简化为光滑孔壁，孔口和倒角仍取原模型。颜色用于识别部件。</p>
+  <p><a href="https://doi.org/10.1088/1361-6501/aadc49">Liao 等，《A novel method for quantitative height measurement based on an astigmatic optical profilometer》</a></p>
+</section></main></body></html>

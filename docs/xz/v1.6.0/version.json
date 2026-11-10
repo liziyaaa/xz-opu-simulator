@@ -1,0 +1,49 @@
+{
+  "version": "1.6.0",
+  "collectionVersion": "1.9.0",
+  "date": "2026-11-10",
+  "parent": "../v1.5.1/index.html",
+  "modelSource": {
+    "step": "Complete_X_lower_Z_upper_4equal_CB_L90_Bump2x3_20261103.step",
+    "sha256": "f48fe9926674b2b1b2eb58b77bb2b9641db1f554c6e3469dd97777bff1c96388",
+    "parts": 163,
+    "engineeringZ": "CAD Y",
+    "triangles": 534224,
+    "meshMethod": "Direct Open Cascade STEP tessellation, face-separated shading, retained plate apertures",
+    "linearDeflectionMm": 0.025,
+    "angularDeflectionRad": 0.24,
+    "positionQuantizationMm": 0.005,
+    "maxProjectedExtentDeviationVsSourceTessellationMm": 0.003816,
+    "internalThreadsSimplified": 217
+  },
+  "assembly": "../v1.5.1/assembly.js",
+  "camera": {
+    "layout": "fixed overhead beside OPU",
+    "cadXmm": 136,
+    "cadDepthMm": 91.5,
+    "stationOffsetMm": 14,
+    "photoZmm": -10,
+    "candidateXLimitMm": 15,
+    "roiMm": [
+      5.2,
+      4
+    ],
+    "sensorPx": [
+      2448,
+      2048
+    ],
+    "pixelUm": 2.74,
+    "lensWorkingDistanceMm": 62.2,
+    "simulatedCalibration": true,
+    "hardwareControl": false
+  },
+  "numericalModelChanged": "Bump in-plane placement can be rotated; FES fit is unchanged",
+  "sha256": {
+    "about.html": "55cf4b68a4d8510de339bcf4ed1eeb5609ef59c46f3cff6b057787f590b5ca98",
+    "app.js": "7f5bb2a5df0563ca7cdc81b1a2107590e90a2add4efffc742b72d46a4f590419",
+    "camera-alignment.js": "dcdced63327f2ba792bd2dbfbecb490bc884b430f36a46b9f94d93939404a431",
+    "camera-view.js": "b0d14af11a4cf1c626dc125fc17f899d4bf1c7964b4be4769b4805d3eb127f36",
+    "index.html": "609ccaf2ccf458f0c67b1e3707d29e085065f1bc890846a0deb3067c72591015",
+    "paper-scan.js": "8471d5bcec223e41fb1fd4cff3f62cb81b26bdbb5dfaff25313ac42fd289a351"
+  }
+}

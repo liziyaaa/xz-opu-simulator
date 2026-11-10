@@ -2,12 +2,13 @@
 
 在线首页：<https://liziyaaa.github.io/xz-opu-simulator/>
 
-合集发布 **v1.8.1 · 2026-11-09**。XZ v1.5.1 直接对原装配 STEP 三角化，保留外形和孔口，并对主要部件分色。公开访问，无需密码或 ChatGPT 账号。
+合集发布 **v1.9.0 · 2026-11-10**。XZ v1.6.0 加入旁置工业相机，演示 Bump 拍照、平面及转运标定、Y／θ 对准和 OPU 测高。公开访问，无需密码或 ChatGPT 账号。
 
 | 演示 | 固定入口 | 模型版本 | 内容 |
 | --- | --- | --- | --- |
 | 金属丝完整装配 | [打开](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.1.0/) | v1.1.0 | 用户完整XZ平台，新增两支架、牵引轮与放卷筒；五种视角、旋转缩放、同一FES/RF模型。 |
 | 金属丝初版示意 | [保留版本](https://liziyaaa.github.io/xz-opu-simulator/wire/v1.0.0/) | v1.0.0 | 原二维进给及微观演示，独立保留。 |
+| XZ 工业相机对准与转运 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.6.0/) | v1.6.0 | 虚拟俯视相机、点阵及同靶标定、双工位转运。 |
 | XZ 原装配轮廓与分色 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.5.1/) | v1.5.1 | 从 STEP 曲面生成装配网格，保留孔口与轮廓。 |
 | XZ 裸硅跳扫与最新装配 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.5.0/) | v1.5.0 | 按布局和光学响应确认裸硅，逐点对照可选。 |
 | XZ S 曲线过零测高 | [打开](https://liziyaaa.github.io/xz-opu-simulator/xz/v1.4.0/) | v1.4.0 | 可调 Z 速度、局部过零拟合、逐点与按需策略、原始过程导出。 |

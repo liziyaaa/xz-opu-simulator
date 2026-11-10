@@ -1,8 +1,9 @@
 {
-  "collectionVersion": "1.8.1",
-  "publishedDate": "2026-11-09",
+  "collectionVersion": "1.9.0",
+  "publishedDate": "2026-11-10",
   "entry": "index.html",
   "demos": [
+    {"id":"industrial-camera","title":"XZ 工业相机对准与转运","modelVersion":"1.6.0","modelDate":"2026-11-10","path":"xz/v1.6.0/","about":"xz/v1.6.0/about.html","audit":"xz/v1.6.0/version.json","numericalModelChanged":true},
     {"id":"wafer-scan-cad","title":"XZ 原装配轮廓与分色","modelVersion":"1.5.1","modelDate":"2026-11-09","path":"xz/v1.5.1/","about":"xz/v1.5.1/about.html","audit":"xz/v1.5.1/version.json","numericalModelChanged":false},
     {"id":"wafer-scan","title":"XZ 裸硅跳扫与最新装配","modelVersion":"1.5.0","modelDate":"2026-11-09","path":"xz/v1.5.0/","about":"xz/v1.5.0/about.html","audit":"xz/v1.5.0/version.json","numericalModelChanged":true},
     {"id":"paper-scan","title":"XZ S 曲线过零测高","modelVersion":"1.4.0","modelDate":"2026-11-09","path":"xz/v1.4.0/","about":"xz/v1.4.0/about.html","audit":"xz/v1.4.0/version.json","numericalModelChanged":true},
